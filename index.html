@@ -79,26 +79,24 @@
 
     <script>
         const AIRTABLE_CONFIG = {
-            token: 'patGvw0Eizo229tIk.540600d44b40ee31dc5e30e46e1255c4704f3447fc0f67ae7da736a59b40897b',
+            token: 'patGvw0Eizo229tIk.9502e57c8a366fcb16417a1b3da5575f1f2a89ad0c5973dc41184732dc4920fb',
             baseId: 'appn2YeNc6Sv40xdd',
             tableName: 'Take A Daytrip Discography',
             pageSize: 30
         };
         
-        let airtableOffset = 'start'; // Use 'start' to signify the very first fetch
+        let airtableOffset = 'start'; 
         let isFetching = false;
-        let allReleases = []; // A global cache to hold all loaded releases
+        let allReleases = []; 
         
         document.addEventListener('DOMContentLoaded', async () => {
             console.log("DOM Loaded. Initializing application.");
             
-            // Handle the intro animation
             const introOverlay = document.getElementById('intro-overlay');
             setTimeout(() => introOverlay.classList.add('hidden'), 500);
             setTimeout(() => introOverlay.style.display = 'none', 1500);
             
             try {
-                // Fetch initial data and set up the page
                 const initialData = await fetchAirtableReleases();
                 if (initialData) {
                     initializeApp(initialData);
@@ -128,18 +126,18 @@
                     throw new Error(`Airtable request failed with status ${response.status}`);
                 }
                 const data = await response.json();
-                airtableOffset = data.offset || null; // If no more offset, set to null
+                airtableOffset = data.offset || null; 
                 
                 const newReleases = data.records.map(mapAirtableRecord);
-                allReleases = [...allReleases, ...newReleases]; // Add new releases to the cache
+                allReleases = [...allReleases, ...newReleases];
                 return newReleases;
 
             } catch (error) {
                 console.error("Failed to fetch from Airtable:", error);
                 const sentinel = document.getElementById('sentinel');
                 if (sentinel) sentinel.innerHTML = `<p class="error-message">Failed to load more.</p>`;
-                airtableOffset = null; // Stop trying to fetch more on error
-                if (airtableOffset === 'start') throw error; // Re-throw if it's the very first fetch
+                airtableOffset = null;
+                if (airtableOffset === 'start') throw error;
             } finally {
                 isFetching = false;
             }
@@ -173,7 +171,7 @@
 
         function initializeApp(initialReleases) {
             renderCarousel(initialReleases.filter(r => r.showInCarousel));
-            renderIndex(initialReleases, true); // First render, clears the grid
+            renderIndex(initialReleases, true);
             setupStaticUI();
             setupLazyLoader();
         }
@@ -253,15 +251,11 @@
                     <div class="details-section">${detailsHtml}</div>`;
                 grid.appendChild(item);
                 
-                // Use click to toggle expansion for better mobile/desktop experience
                 item.addEventListener('click', (e) => {
-                    // Prevent expansion if a link inside details is clicked in the future
                     if (e.target.tagName === 'A') return;
                     
                     const isExpanded = item.classList.contains('is-expanded');
-                    // Collapse any other expanded item
                     document.querySelectorAll('.grid-item.is-expanded').forEach(el => el.classList.remove('is-expanded'));
-                    // Expand the current one if it wasn't already expanded
                     if (!isExpanded) {
                         item.classList.add('is-expanded');
                     }
@@ -275,7 +269,7 @@
                 if (entries[0].isIntersecting && !isFetching && airtableOffset) {
                     const newReleases = await fetchAirtableReleases();
                     if (newReleases) {
-                        renderIndex(newReleases, false); // Append new items
+                        renderIndex(newReleases, false);
                     }
                 }
             }, { threshold: 1.0 });
