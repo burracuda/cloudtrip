@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Take A Daytrip - Discography</title>
+    <title>Take A Daytrip - The Definitive Archive</title>
+    <meta name="description" content="The Definitive Daytrip Archive, a complete, interactive discography of the music production duo.">
+    <meta name="keywords" content="Take A Daytrip, discography, music production, hip hop, pop">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -40,11 +42,12 @@
         .details-section li{padding:8px 0;font-size:14px;color:var(--text-secondary)}
         .details-section .credit-section{padding:15px 0 0 0;margin:0;border-top:1px solid #eee}
         .details-section .credit-item{display:flex;justify-content:space-between;padding:8px 0;font-size:14px}
+        .details-section .credit-item .role{color:var(--text-secondary)}
         .details-section .credit-item .name{font-weight:500;color:var(--text-primary)}
         .view-controls{position:fixed;top:30px;right:100px;z-index:210;display:flex;gap:5px}
         .col-btn{background:#fff;border:1px solid var(--border-color);color:var(--text-primary);width:40px;height:40px;border-radius:50%;cursor:pointer;transition:all .2s ease;font-size:24px;font-weight:500}.col-btn:hover{background:var(--text-primary);color:var(--background-color)}.col-btn:disabled{opacity:0.5;cursor:not-allowed}
         .close-btn{position:fixed;top:30px;right:40px;z-index:210;background:#fff;border:1px solid var(--border-color);color:var(--text-primary);width:40px;height:40px;border-radius:50%;cursor:pointer;transition:all var(--transition-speed) ease;font-family:serif;font-size:24px;line-height:40px;padding:0;text-align:center}.close-btn:hover{background:var(--text-primary);color:var(--background-color);transform:scale(1.05)}
-        #sentinel{width:100%;height:50px}
+        #sentinel{width:100%;height:50px; margin-top: 20px;}
         .error-message{text-align:center;padding:50px;font-size:18px;color:var(--text-secondary)}
     </style>
 </head>
@@ -61,9 +64,7 @@
             <button class="view-toggle" id="viewToggle">View All</button>
         </header>
         <main class="carousel-view" id="carouselView">
-            <div class="carousel-container" id="carouselContainer">
-                 <!-- Carousel items will be injected here -->
-            </div>
+            <div class="carousel-container" id="carouselContainer"></div>
         </main>
         <div class="index-view" id="indexView">
             <div class="view-controls">
@@ -71,9 +72,7 @@
                 <button id="plus-btn" class="col-btn">+</button>
             </div>
             <button class="close-btn" id="closeBtn">&times;</button>
-            <div class="index-grid" id="indexGrid">
-                <!-- Grid items will be injected here -->
-            </div>
+            <div class="index-grid" id="indexGrid"></div>
             <div id="sentinel"></div>
         </div>
     </div>
@@ -86,38 +85,64 @@
             pageSize: 30
         };
         
-        let dataOffset = 'start'; // Use 'start' to signify the first fetch
+        let airtableOffset = 'start'; // Use 'start' to signify the very first fetch
         let isFetching = false;
+        let allReleases = []; // A global cache to hold all loaded releases
         
         document.addEventListener('DOMContentLoaded', async () => {
-            console.log("DOM Loaded. Starting App.");
+            console.log("DOM Loaded. Initializing application.");
+            
+            // Handle the intro animation
+            const introOverlay = document.getElementById('intro-overlay');
+            setTimeout(() => introOverlay.classList.add('hidden'), 500);
+            setTimeout(() => introOverlay.style.display = 'none', 1500);
+            
             try {
-                const introOverlay = document.getElementById('intro-overlay');
-                setTimeout(() => { introOverlay.classList.add('hidden'); }, 500);
-                setTimeout(() => { introOverlay.style.display = 'none'; }, 1500);
-                
-                await fetchAndRenderReleases(true);
-
+                // Fetch initial data and set up the page
+                const initialData = await fetchAirtableReleases();
+                if (initialData) {
+                    initializeApp(initialData);
+                }
             } catch (error) {
                 console.error("Critical initialization failure:", error);
                 const mainContent = document.querySelector('.site-content') || document.body;
-                mainContent.innerHTML = `<div class="error-message"><h1>Could not load discography</h1><p>Please check the console for details.</p></div>`;
+                mainContent.innerHTML = `<div class="error-message"><h1>Error: Could not load discography.</h1><p>Please check the console for details or try again later.</p></div>`;
             }
         });
 
-        async function fetchAirtableData(offset = null) {
-            // If offset is 'start', we are on the first page and don't need the offset parameter
-            let url = `https://api.airtable.com/v0/${AIRTABLE_CONFIG.baseId}/${encodeURIComponent(AIRTABLE_CONFIG.tableName)}?pageSize=${AIRTABLE_CONFIG.pageSize}&sort%5B0%5D%5Bfield%5D=Release Date&sort%5B0%5D%5Bdirection%5D=desc`;
-            if (offset && offset !== 'start') url += `&offset=${offset}`;
+        async function fetchAirtableReleases() {
+            if (isFetching || airtableOffset === null) return;
+            isFetching = true;
+            console.log(`Fetching from Airtable with offset: ${airtableOffset}`);
 
-            const response = await fetch(url, { headers: { 'Authorization': `Bearer ${AIRTABLE_CONFIG.token}` } });
-            
-            if (!response.ok) {
-                const errorBody = await response.json();
-                console.error("Airtable Error Details:", errorBody);
-                throw new Error(`Airtable request failed with status ${response.status}`);
+            let url = `https://api.airtable.com/v0/${AIRTABLE_CONFIG.baseId}/${encodeURIComponent(AIRTABLE_CONFIG.tableName)}?pageSize=${AIRTABLE_CONFIG.pageSize}&sort%5B0%5D%5Bfield%5D=Release Date&sort%5B0%5D%5Bdirection%5D=desc`;
+            if (airtableOffset && airtableOffset !== 'start') {
+                url += `&offset=${airtableOffset}`;
             }
-            return response.json();
+
+            try {
+                const response = await fetch(url, { headers: { 'Authorization': `Bearer ${AIRTABLE_CONFIG.token}` } });
+                if (!response.ok) {
+                    const errorBody = await response.json();
+                    console.error("Airtable API Error:", errorBody);
+                    throw new Error(`Airtable request failed with status ${response.status}`);
+                }
+                const data = await response.json();
+                airtableOffset = data.offset || null; // If no more offset, set to null
+                
+                const newReleases = data.records.map(mapAirtableRecord);
+                allReleases = [...allReleases, ...newReleases]; // Add new releases to the cache
+                return newReleases;
+
+            } catch (error) {
+                console.error("Failed to fetch from Airtable:", error);
+                const sentinel = document.getElementById('sentinel');
+                if (sentinel) sentinel.innerHTML = `<p class="error-message">Failed to load more.</p>`;
+                airtableOffset = null; // Stop trying to fetch more on error
+                if (airtableOffset === 'start') throw error; // Re-throw if it's the very first fetch
+            } finally {
+                isFetching = false;
+            }
         }
         
         function mapAirtableRecord(record) {
@@ -125,10 +150,9 @@
             let credits = null;
             if (fields.Credits) {
                 try {
-                    // Airtable sometimes returns a string that needs parsing.
                     credits = typeof fields.Credits === 'string' ? JSON.parse(fields.Credits) : fields.Credits;
                 } catch (e) {
-                    console.warn(`Could not parse Credits JSON for record "${fields.Title}":`, fields.Credits);
+                    console.warn(`Could not parse Credits JSON for record "${fields.Title}"`);
                 }
             }
             return {
@@ -137,7 +161,7 @@
                 type: fields.Type || 'Single',
                 releaseDate: fields['Release Date'] || '',
                 albumArtUrl: fields.Artwork?.[0]?.url || '',
-                tracks: fields.Tracks ? fields.Tracks.split('\n') : [],
+                tracks: fields.Tracks ? fields.Tracks.split('\n').filter(t => t.trim() !== '') : [],
                 credits: credits,
                 videoUrl: fields['Video Link'] || '',
                 youtubeUrl: fields['YouTube Link'] || '',
@@ -147,102 +171,67 @@
             };
         }
 
-        async function fetchAndRenderReleases(isInitialLoad = false) {
-            if (isFetching || dataOffset === null) return;
-            isFetching = true;
-
-            try {
-                const data = await fetchAirtableData(dataOffset);
-                if (!data || !data.records) { 
-                    dataOffset = null; // No more data
-                    return;
-                }
-
-                const newReleases = data.records.map(mapAirtableRecord);
-                dataOffset = data.offset || null; // If no offset, we've reached the end
-
-                if (isInitialLoad) {
-                    initializeApp(newReleases);
-                } else {
-                    renderIndex(newReleases, false); // Append new items
-                }
-            } catch (error) {
-                console.error("Failed to fetch and render releases:", error);
-                if(isInitialLoad) throw error; // Re-throw for initial load failure
-                else { // Handle subsequent load failures gracefully
-                    const sentinel = document.getElementById('sentinel');
-                    if(sentinel) sentinel.innerHTML = `<p class="error-message">Failed to load more.</p>`;
-                }
-            } finally {
-                isFetching = false;
-            }
-        }
-        
         function initializeApp(initialReleases) {
             renderCarousel(initialReleases.filter(r => r.showInCarousel));
-            renderIndex(initialReleases, true); // Initial render
-            setupLazyLoader();
+            renderIndex(initialReleases, true); // First render, clears the grid
             setupStaticUI();
+            setupLazyLoader();
         }
 
         function renderCarousel(releases) {
             const container = document.getElementById('carouselContainer');
-            if (!container) return;
-            container.innerHTML = '';
-            
             releases.forEach(release => {
                 const item = document.createElement('div');
                 item.className = 'carousel-item';
                 
-                let videoHtml = release.videoUrl ? `<video src="${release.videoUrl}" loop muted playsinline></video>` : '';
-                let linksHtml = [
-                    release.spotifyUrl ? `<a href="${release.spotifyUrl}" target="_blank">Spotify</a>` : '',
-                    release.appleMusicUrl ? `<a href="${release.appleMusicUrl}" target="_blank">Apple Music</a>` : '',
-                    release.youtubeUrl ? `<a href="${release.youtubeUrl}" target="_blank">YouTube</a>` : ''
-                ].filter(Boolean).join('');
+                const videoHtml = release.videoUrl ? `<video src="${release.videoUrl}" loop muted playsinline></video>` : '';
+                const links = [
+                    { href: release.spotifyUrl, text: 'Spotify' },
+                    { href: release.appleMusicUrl, text: 'Apple Music' },
+                    { href: release.youtubeUrl, text: 'YouTube' }
+                ].filter(link => link.href).map(link => `<a href="${link.href}" target="_blank" rel="noopener noreferrer">${link.text}</a>`).join('');
 
                 item.innerHTML = `
                     <div class="album-cover" style="background-image: url('${release.albumArtUrl}')">
                         ${videoHtml}
-                        <div class="action-overlay">${linksHtml}</div>
+                        <div class="action-overlay">${links}</div>
                     </div>
                     <div class="item-info">
                         <div class="item-title">${release.title}</div>
                         <div class="item-artist">${release.artist}</div>
-                    </div>
-                `;
+                    </div>`;
                 container.appendChild(item);
 
-                // "Living Album Art" logic
                 let hoverTimeout;
+                const video = item.querySelector('video');
                 item.addEventListener('mouseenter', () => {
                     item.classList.add('is-active');
-                    if (release.videoUrl) {
+                    if (video) {
                         hoverTimeout = setTimeout(() => {
                             item.classList.add('is-expanded');
-                            const video = item.querySelector('video');
-                            if (video) video.play();
+                            video.play();
                         }, 1500);
                     }
                 });
                 item.addEventListener('mouseleave', () => {
                     clearTimeout(hoverTimeout);
                     item.classList.remove('is-active', 'is-expanded');
-                    const video = item.querySelector('video');
-                    if (video) video.pause();
+                    if (video) {
+                        video.pause();
+                        video.currentTime = 0;
+                    }
                 });
             });
         }
-
+        
         function renderIndex(releases, isInitialRender = false) {
             const grid = document.getElementById('indexGrid');
-            if(!grid) return;
             if (isInitialRender) grid.innerHTML = '';
-
+            
             releases.forEach(release => {
                 const item = document.createElement('div');
                 item.className = `grid-item ${release.type === 'Album' ? 'is-album' : 'is-single'}`;
-                
+
                 let detailsHtml = '';
                 if (release.type === 'Album' && release.tracks.length > 0) {
                     detailsHtml = `<ul>${release.tracks.map(track => `<li>${track}</li>`).join('')}</ul>`;
@@ -261,14 +250,19 @@
                             <div class="artist">${release.artist}</div>
                         </div>
                     </div>
-                    <div class="details-section">${detailsHtml}</div>
-                `;
+                    <div class="details-section">${detailsHtml}</div>`;
                 grid.appendChild(item);
-
-                item.addEventListener('click', () => {
-                    const alreadyExpanded = item.classList.contains('is-expanded');
+                
+                // Use click to toggle expansion for better mobile/desktop experience
+                item.addEventListener('click', (e) => {
+                    // Prevent expansion if a link inside details is clicked in the future
+                    if (e.target.tagName === 'A') return;
+                    
+                    const isExpanded = item.classList.contains('is-expanded');
+                    // Collapse any other expanded item
                     document.querySelectorAll('.grid-item.is-expanded').forEach(el => el.classList.remove('is-expanded'));
-                    if (!alreadyExpanded) {
+                    // Expand the current one if it wasn't already expanded
+                    if (!isExpanded) {
                         item.classList.add('is-expanded');
                     }
                 });
@@ -277,11 +271,12 @@
 
         function setupLazyLoader() {
             const sentinel = document.getElementById('sentinel');
-            if (!sentinel) return;
-
-            const observer = new IntersectionObserver(entries => {
-                if (entries[0].isIntersecting && !isFetching && dataOffset) {
-                    fetchAndRenderReleases();
+            const observer = new IntersectionObserver(async (entries) => {
+                if (entries[0].isIntersecting && !isFetching && airtableOffset) {
+                    const newReleases = await fetchAirtableReleases();
+                    if (newReleases) {
+                        renderIndex(newReleases, false); // Append new items
+                    }
                 }
             }, { threshold: 1.0 });
 
@@ -292,11 +287,6 @@
             const viewToggle = document.getElementById('viewToggle');
             const closeBtn = document.getElementById('closeBtn');
             const indexView = document.getElementById('indexView');
-            
-            viewToggle.addEventListener('click', () => indexView.classList.add('active'));
-            closeBtn.addEventListener('click', () => indexView.classList.remove('active'));
-
-            // Column controls
             const plusBtn = document.getElementById('plus-btn');
             const minusBtn = document.getElementById('minus-btn');
             const indexGrid = document.getElementById('indexGrid');
@@ -310,13 +300,12 @@
                 plusBtn.disabled = columns >= 6;
             };
 
-            plusBtn.addEventListener('click', () => {
-                if (columns < 6) { columns++; updateGridColumns(); }
-            });
-
-            minusBtn.addEventListener('click', () => {
-                if (columns > 2) { columns--; updateGridColumns(); }
-            });
+            plusBtn.addEventListener('click', () => { if (columns < 6) { columns++; updateGridColumns(); } });
+            minusBtn.addEventListener('click', () => { if (columns > 2) { columns--; updateGridColumns(); } });
+            
+            viewToggle.addEventListener('click', () => indexView.classList.add('active'));
+            closeBtn.addEventListener('click', () => indexView.classList.remove('active'));
+            
             updateGridColumns();
         }
     </script>
