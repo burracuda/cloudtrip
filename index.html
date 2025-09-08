@@ -8,7 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        :root{--background-color:#ffffff;--text-primary:#000000;--text-secondary:#666666;--font-main:"Poppins",sans-serif;--item-width:280px;--item-height:280px;--item-gap:30px;--border-color:#e0e0e0;--overlay-bg:rgba(255,255,255,0.95);--transition-speed:0.3s;--border-radius:12px}*{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font-main);background-color:var(--background-color);color:var(--text-primary);overflow-x:hidden;line-height:1.4}#intro-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background-color:var(--background-color);z-index:9999;display:flex;align-items:center;justify-content:center;transition:opacity .8s cubic-bezier(.77,0,.175,1)}#intro-overlay.hidden{opacity:0;pointer-events:none}#intro-logo{width:40vw;max-width:400px;transition:transform 1s cubic-bezier(.77,0,.175,1)}#intro-overlay.hidden #intro-logo{transform:scale(.1)}.site-content{opacity:0;animation:fadeIn .5s ease-in-out 1.2s forwards}@keyframes fadeIn{from{opacity:0}to{opacity:1}}.header{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;background:var(--background-color);border-bottom:1px solid var(--border-color)}.logo img{height:45px;width:auto}.view-toggle{background:var(--background-color);border:1px solid var(--border-color);color:var(--text-primary);padding:8px 16px;border-radius:var(--border-radius);cursor:pointer;transition:all var(--transition-speed) ease;font-family:var(--font-main);font-size:14px;font-weight:500}.view-toggle:hover{background:var(--text-primary);color:var(--background-color);transform:translateY(-1px)}.carousel-view{min-height:100vh;display:flex;align-items:center;position:relative;padding-top:80px}.carousel-container{display:flex;overflow-x:auto;overflow-y:hidden;gap:var(--item-gap);padding:60px 40px;width:100%;scroll-behavior:smooth;-ms-overflow-style:none;scrollbar-width:none;-webkit-mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent);mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent)}.carousel-container::-webkit-scrollbar{display:none}
+        :root{--background-color:#ffffff;--text-primary:#000000;--text-secondary:#666666;--font-main:"Poppins",sans-serif;--item-width:280px;--item-height:280px;--item-gap:30px;--border-color:#e0e0e0;--overlay-bg:rgba(255,255,255,0.85);--transition-speed:0.3s;--border-radius:12px}*{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font-main);background-color:var(--background-color);color:var(--text-primary);overflow-x:hidden;line-height:1.4}#intro-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background-color:var(--background-color);z-index:9999;display:flex;align-items:center;justify-content:center;transition:opacity .8s cubic-bezier(.77,0,.175,1)}#intro-overlay.hidden{opacity:0;pointer-events:none}#intro-logo{width:40vw;max-width:400px;transition:transform 1s cubic-bezier(.77,0,.175,1)}#intro-overlay.hidden #intro-logo{transform:scale(.1)}.site-content{opacity:0;animation:fadeIn .5s ease-in-out 1.2s forwards}@keyframes fadeIn{from{opacity:0}to{opacity:1}}.header{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;background:var(--background-color);border-bottom:1px solid var(--border-color)}.logo img{height:45px;width:auto}.view-toggle{background:var(--background-color);border:1px solid var(--border-color);color:var(--text-primary);padding:8px 16px;border-radius:var(--border-radius);cursor:pointer;transition:all var(--transition-speed) ease;font-family:var(--font-main);font-size:14px;font-weight:500}.view-toggle:hover{background:var(--text-primary);color:var(--background-color);transform:translateY(-1px)}.carousel-view{min-height:100vh;display:flex;align-items:center;position:relative;padding-top:80px}.carousel-container{display:flex;overflow-x:auto;overflow-y:hidden;gap:var(--item-gap);padding:60px 40px;width:100%;scroll-behavior:smooth;-ms-overflow-style:none;scrollbar-width:none;-webkit-mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent);mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent)}
+        .carousel-container::-webkit-scrollbar{display:none}
         .carousel-item{flex-shrink:0;width:var(--item-width);display:flex;flex-direction:column;cursor:pointer;transition:transform .3s cubic-bezier(.25,.8,.25,1),width .5s cubic-bezier(.77,0,.175,1);position:relative}
         .carousel-item:hover{transform:translateY(-4px) scale(1.05);z-index:10}
         .album-cover{width:100%;height:var(--item-height);background-color:#f0f0f0;background-size:cover;background-position:center;border-radius:var(--border-radius);margin-bottom:16px;transition:all var(--transition-speed) ease;box-shadow:0 4px 20px rgba(0,0,0,.08);position:relative;overflow:hidden}
@@ -23,17 +24,18 @@
         .carousel-item.is-expanded{width:calc(var(--item-height)*1.778)}
         .carousel-item.is-expanded .album-cover video{opacity:1}
         .item-info{text-align:left}.item-title{font-weight:600;font-size:16px;margin-bottom:4px;color:var(--text-primary)}.item-artist{font-weight:400;font-size:14px;color:var(--text-secondary)}
-        .index-view{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--overlay-bg);backdrop-filter:blur(10px);z-index:200;opacity:0;visibility:hidden;transition:all var(--transition-speed) ease;padding:100px 40px 40px;overflow-y:auto}
-        .index-view.active{opacity:1;visibility:visible}
+        .index-view{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--overlay-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:200;opacity:0;visibility:hidden;transition:opacity var(--transition-speed) ease, visibility 0s var(--transition-speed) linear;padding:100px 40px 40px;overflow-y:auto}
+        .index-view.active{opacity:1;visibility:visible;transition-delay:0s}
         .index-grid{--grid-columns: 4; --thumbnail-size: 100px; display:grid; grid-template-columns:repeat(var(--grid-columns), 1fr); gap:20px;max-width:1400px;margin:0 auto; align-items: start;}
-        .grid-item{background:#fff;border-radius:var(--border-radius);padding:16px;box-shadow:0 4px 20px rgba(0,0,0,.05);cursor:pointer}
+        .grid-item{background:#fff;border-radius:var(--border-radius);padding:16px;box-shadow:0 4px 20px rgba(0,0,0,.05);cursor:pointer; transition: transform 0.2s ease;}
+        .grid-item:hover { transform: translateY(-2px); }
         .item-header{display:flex;align-items:center;gap:15px}
         .item-thumbnail{width:var(--thumbnail-size);height:var(--thumbnail-size);border-radius:8px;flex-shrink:0;background-color:#f0f0f0;background-size:cover;background-position:center; transition: width 0.3s ease, height 0.3s ease;}
         .item-details .title{font-weight:600;font-size:16px;color:var(--text-primary)}
         .item-details .artist{font-weight:400;color:var(--text-secondary);font-size:14px}
         .details-section{max-height:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);padding-top:0}
         .grid-item.is-album.is-expanded .details-section{max-height:500px;padding-top:15px}
-        .grid-item.is-single.is-expanded .details-section{max-height:60px; padding-top:15px}
+        .grid-item.is-single.is-expanded .details-section{max-height:100px; padding-top:15px}
         .details-section ul{list-style:none;padding:15px 0 0 0;margin:0;border-top:1px solid #eee}
         .details-section li{padding:8px 0;font-size:14px;color:var(--text-secondary)}
         .details-section .credit-section{padding:15px 0 0 0;margin:0;border-top:1px solid #eee}
@@ -43,6 +45,7 @@
         .col-btn{background:#fff;border:1px solid var(--border-color);color:var(--text-primary);width:40px;height:40px;border-radius:50%;cursor:pointer;transition:all .2s ease;font-size:24px;font-weight:500}.col-btn:hover{background:var(--text-primary);color:var(--background-color)}.col-btn:disabled{opacity:0.5;cursor:not-allowed}
         .close-btn{position:fixed;top:30px;right:40px;z-index:210;background:#fff;border:1px solid var(--border-color);color:var(--text-primary);width:40px;height:40px;border-radius:50%;cursor:pointer;transition:all var(--transition-speed) ease;font-family:serif;font-size:24px;line-height:40px;padding:0;text-align:center}.close-btn:hover{background:var(--text-primary);color:var(--background-color);transform:scale(1.05)}
         #sentinel{width:100%;height:50px}
+        .error-message{text-align:center;padding:50px;font-size:18px;color:var(--text-secondary)}
     </style>
 </head>
 <body>
@@ -58,7 +61,9 @@
             <button class="view-toggle" id="viewToggle">View All</button>
         </header>
         <main class="carousel-view" id="carouselView">
-            <div class="carousel-container" id="carouselContainer"></div>
+            <div class="carousel-container" id="carouselContainer">
+                 <!-- Carousel items will be injected here -->
+            </div>
         </main>
         <div class="index-view" id="indexView">
             <div class="view-controls">
@@ -66,7 +71,9 @@
                 <button id="plus-btn" class="col-btn">+</button>
             </div>
             <button class="close-btn" id="closeBtn">&times;</button>
-            <div class="index-grid" id="indexGrid"></div>
+            <div class="index-grid" id="indexGrid">
+                <!-- Grid items will be injected here -->
+            </div>
             <div id="sentinel"></div>
         </div>
     </div>
@@ -79,43 +86,33 @@
             pageSize: 30
         };
         
-        let dataOffset = null;
+        let dataOffset = 'start'; // Use 'start' to signify the first fetch
         let isFetching = false;
-
-        document.addEventListener('DOMContentLoaded', () => {
-            initializeApp();
-        });
-
-        async function initializeApp() {
-            console.log("DOM Loaded. Initializing App.");
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log("DOM Loaded. Starting App.");
             try {
                 const introOverlay = document.getElementById('intro-overlay');
                 setTimeout(() => { introOverlay.classList.add('hidden'); }, 500);
                 setTimeout(() => { introOverlay.style.display = 'none'; }, 1500);
                 
-                // --- THIS IS THE NEW, RESILIENT LOGIC ---
-                setupStaticUI(); // Render the static parts of the UI immediately
-                const initialReleases = await fetchAndRenderReleases(true); // Fetch the first page
-                if (initialReleases) {
-                    renderCarousel(initialReleases); // Populate the carousel with the first page
-                    setupLazyLoader(); // Only set up the lazy loader if the first fetch was successful
-                } else {
-                    throw new Error("Failed to fetch initial data from Airtable.");
-                }
+                await fetchAndRenderReleases(true);
+
             } catch (error) {
                 console.error("Critical initialization failure:", error);
-                const grid = document.getElementById('indexGrid');
-                if(grid) grid.innerHTML = `<p style="color: red; text-align: center; grid-column: 1 / -1;">Error: Could not load discography. Please check the console.</p>`;
+                const mainContent = document.querySelector('.site-content') || document.body;
+                mainContent.innerHTML = `<div class="error-message"><h1>Could not load discography</h1><p>Please check the console for details.</p></div>`;
             }
-        }
+        });
 
         async function fetchAirtableData(offset = null) {
+            // If offset is 'start', we are on the first page and don't need the offset parameter
             let url = `https://api.airtable.com/v0/${AIRTABLE_CONFIG.baseId}/${encodeURIComponent(AIRTABLE_CONFIG.tableName)}?pageSize=${AIRTABLE_CONFIG.pageSize}&sort%5B0%5D%5Bfield%5D=Release Date&sort%5B0%5D%5Bdirection%5D=desc`;
-            if (offset) url += `&offset=${offset}`;
+            if (offset && offset !== 'start') url += `&offset=${offset}`;
 
             const response = await fetch(url, { headers: { 'Authorization': `Bearer ${AIRTABLE_CONFIG.token}` } });
+            
             if (!response.ok) {
-                console.error(`Airtable API Error: ${response.status} ${response.statusText}`);
                 const errorBody = await response.json();
                 console.error("Airtable Error Details:", errorBody);
                 throw new Error(`Airtable request failed with status ${response.status}`);
@@ -126,9 +123,10 @@
         function mapAirtableRecord(record) {
             const fields = record.fields;
             let credits = null;
-            if (fields.Credits && typeof fields.Credits === 'string') {
+            if (fields.Credits) {
                 try {
-                    credits = JSON.parse(fields.Credits);
+                    // Airtable sometimes returns a string that needs parsing.
+                    credits = typeof fields.Credits === 'string' ? JSON.parse(fields.Credits) : fields.Credits;
                 } catch (e) {
                     console.warn(`Could not parse Credits JSON for record "${fields.Title}":`, fields.Credits);
                 }
@@ -150,127 +148,177 @@
         }
 
         async function fetchAndRenderReleases(isInitialLoad = false) {
-            if (isFetching || (dataOffset === null && !isInitialLoad)) return null;
+            if (isFetching || dataOffset === null) return;
             isFetching = true;
 
-            const data = await fetchAirtableData(dataOffset);
-            if (!data || !data.records) { isFetching = false; return null; }
+            try {
+                const data = await fetchAirtableData(dataOffset);
+                if (!data || !data.records) { 
+                    dataOffset = null; // No more data
+                    return;
+                }
 
-            const newReleases = data.records.map(mapAirtableRecord);
-            dataOffset = data.offset || null;
+                const newReleases = data.records.map(mapAirtableRecord);
+                dataOffset = data.offset || null; // If no offset, we've reached the end
 
-            if (isInitialLoad) {
-                renderIndex(newReleases); // Render first batch in the grid
+                if (isInitialLoad) {
+                    initializeApp(newReleases);
+                } else {
+                    renderIndex(newReleases, false); // Append new items
+                }
+            } catch (error) {
+                console.error("Failed to fetch and render releases:", error);
+                if(isInitialLoad) throw error; // Re-throw for initial load failure
+                else { // Handle subsequent load failures gracefully
+                    const sentinel = document.getElementById('sentinel');
+                    if(sentinel) sentinel.innerHTML = `<p class="error-message">Failed to load more.</p>`;
+                }
+            } finally {
                 isFetching = false;
-                return newReleases; // Return data for carousel
-            } else {
-                renderIndex(newReleases); // Append new items to grid for lazy load
             }
-            isFetching = false;
         }
         
+        function initializeApp(initialReleases) {
+            renderCarousel(initialReleases.filter(r => r.showInCarousel));
+            renderIndex(initialReleases, true); // Initial render
+            setupLazyLoader();
+            setupStaticUI();
+        }
+
         function renderCarousel(releases) {
-            const carouselContainer = document.getElementById('carouselContainer');
-            if (!carouselContainer) return;
-            carouselContainer.innerHTML = '';
-            const carouselReleases = releases.filter(r => r.showInCarousel);
-            carouselReleases.forEach(release => {
-                const carouselItem = document.createElement('div');
-                carouselItem.className = 'carousel-item';
-                let videoContent = release.videoUrl ? `<video src="${release.videoUrl}" loop muted playsinline></video>` : '';
-                let watchButton = release.youtubeUrl ? `<a href="${release.youtubeUrl}" target="_blank">Watch on YouTube</a>` : '';
-                carouselItem.innerHTML = `<div class="album-cover" style="background-image: url(${release.albumArtUrl})">${videoContent}<div class="action-overlay">${watchButton}<a href="${release.spotifyUrl}" target="_blank">Listen on Spotify</a><a href="${release.appleMusicUrl}" target="_blank">Listen on Apple Music</a></div></div><div class="item-info"><div class="item-title">${release.title}</div><div class="item-artist">${release.artist}</div></div>`;
-                carouselContainer.appendChild(carouselItem);
+            const container = document.getElementById('carouselContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            
+            releases.forEach(release => {
+                const item = document.createElement('div');
+                item.className = 'carousel-item';
                 
-                let actionTimer;
-                const video = carouselItem.querySelector('video');
-                carouselItem.addEventListener('mouseenter', () => {
-                    actionTimer = setTimeout(() => {
-                        carouselItem.classList.add('is-active');
-                        if (video) { carouselItem.classList.add('is-expanded'); video.play(); }
-                    }, 1500);
+                let videoHtml = release.videoUrl ? `<video src="${release.videoUrl}" loop muted playsinline></video>` : '';
+                let linksHtml = [
+                    release.spotifyUrl ? `<a href="${release.spotifyUrl}" target="_blank">Spotify</a>` : '',
+                    release.appleMusicUrl ? `<a href="${release.appleMusicUrl}" target="_blank">Apple Music</a>` : '',
+                    release.youtubeUrl ? `<a href="${release.youtubeUrl}" target="_blank">YouTube</a>` : ''
+                ].filter(Boolean).join('');
+
+                item.innerHTML = `
+                    <div class="album-cover" style="background-image: url('${release.albumArtUrl}')">
+                        ${videoHtml}
+                        <div class="action-overlay">${linksHtml}</div>
+                    </div>
+                    <div class="item-info">
+                        <div class="item-title">${release.title}</div>
+                        <div class="item-artist">${release.artist}</div>
+                    </div>
+                `;
+                container.appendChild(item);
+
+                // "Living Album Art" logic
+                let hoverTimeout;
+                item.addEventListener('mouseenter', () => {
+                    item.classList.add('is-active');
+                    if (release.videoUrl) {
+                        hoverTimeout = setTimeout(() => {
+                            item.classList.add('is-expanded');
+                            const video = item.querySelector('video');
+                            if (video) video.play();
+                        }, 1500);
+                    }
                 });
-                carouselItem.addEventListener('mouseleave', () => {
-                    clearTimeout(actionTimer);
-                    carouselItem.classList.remove('is-active');
-                    if (video) { carouselItem.classList.remove('is-expanded'); video.pause(); video.currentTime = 0; }
+                item.addEventListener('mouseleave', () => {
+                    clearTimeout(hoverTimeout);
+                    item.classList.remove('is-active', 'is-expanded');
+                    const video = item.querySelector('video');
+                    if (video) video.pause();
                 });
             });
         }
-        
-        function renderIndex(releasesToAppend) {
-            const indexGrid = document.getElementById('indexGrid');
-            const sentinel = document.getElementById('sentinel');
-            if (!indexGrid || !sentinel) return;
 
-            releasesToAppend.forEach(release => {
-                const gridItem = document.createElement('div');
-                gridItem.className = 'grid-item';
-                gridItem.classList.add(release.type === 'Album' || release.type === 'EP' ? 'is-album' : 'is-single');
-                const tracks = release.tracks || [];
-                let detailsHtml = '';
-                if ((release.type === 'Album' || release.type === 'EP') && tracks.length > 0) {
-                    const trackItems = tracks.map(track => `<li>${track}</li>`).join('');
-                    detailsHtml = `<ul>${trackItems}</ul>`;
-                } else if (release.credits) {
-                    const creditItems = Object.keys(release.credits).map(role => `<div class="credit-item"><span class="name">${role}</span></div>`).join('');
-                    detailsHtml = `<div class="credit-section">${creditItems}</div>`;
-                }
-                gridItem.innerHTML = `<div class="item-header"><div class="item-thumbnail" style="background-image: url(${release.albumArtUrl})"></div><div class="item-details"><div class="title">${release.title}</div><div class="artist">${release.artist}</div></div></div><div class="details-section">${detailsHtml}</div>`;
+        function renderIndex(releases, isInitialRender = false) {
+            const grid = document.getElementById('indexGrid');
+            if(!grid) return;
+            if (isInitialRender) grid.innerHTML = '';
+
+            releases.forEach(release => {
+                const item = document.createElement('div');
+                item.className = `grid-item ${release.type === 'Album' ? 'is-album' : 'is-single'}`;
                 
-                let expandTimer;
-                gridItem.addEventListener('mouseenter', () => { expandTimer = setTimeout(() => gridItem.classList.add('is-expanded'), 300); });
-                gridItem.addEventListener('mouseleave', () => { clearTimeout(expandTimer); gridItem.classList.remove('is-expanded'); });
+                let detailsHtml = '';
+                if (release.type === 'Album' && release.tracks.length > 0) {
+                    detailsHtml = `<ul>${release.tracks.map(track => `<li>${track}</li>`).join('')}</ul>`;
+                } else if (release.type === 'Single' && release.credits) {
+                    const creditsList = Object.entries(release.credits).map(([key, value]) => 
+                        `<div class="credit-item"><span class="role">${key}</span><span class="name">${value}</span></div>`
+                    ).join('');
+                    detailsHtml = `<div class="credit-section">${creditsList}</div>`;
+                }
 
-                indexGrid.insertBefore(gridItem, sentinel);
+                item.innerHTML = `
+                    <div class="item-header">
+                        <div class="item-thumbnail" style="background-image: url('${release.albumArtUrl}')"></div>
+                        <div class="item-details">
+                            <div class="title">${release.title}</div>
+                            <div class="artist">${release.artist}</div>
+                        </div>
+                    </div>
+                    <div class="details-section">${detailsHtml}</div>
+                `;
+                grid.appendChild(item);
+
+                item.addEventListener('click', () => {
+                    const alreadyExpanded = item.classList.contains('is-expanded');
+                    document.querySelectorAll('.grid-item.is-expanded').forEach(el => el.classList.remove('is-expanded'));
+                    if (!alreadyExpanded) {
+                        item.classList.add('is-expanded');
+                    }
+                });
             });
         }
 
         function setupLazyLoader() {
             const sentinel = document.getElementById('sentinel');
-            const indexView = document.querySelector('.index-view');
-            if (!sentinel || !indexView) return;
+            if (!sentinel) return;
+
             const observer = new IntersectionObserver(entries => {
                 if (entries[0].isIntersecting && !isFetching && dataOffset) {
                     fetchAndRenderReleases();
                 }
-            }, { root: indexView });
+            }, { threshold: 1.0 });
+
             observer.observe(sentinel);
         }
 
         function setupStaticUI() {
-            const indexGrid = document.getElementById('indexGrid');
             const viewToggle = document.getElementById('viewToggle');
             const closeBtn = document.getElementById('closeBtn');
             const indexView = document.getElementById('indexView');
+            
+            viewToggle.addEventListener('click', () => indexView.classList.add('active'));
+            closeBtn.addEventListener('click', () => indexView.classList.remove('active'));
+
+            // Column controls
             const plusBtn = document.getElementById('plus-btn');
             const minusBtn = document.getElementById('minus-btn');
-            if (!indexGrid || !viewToggle || !closeBtn || !indexView || !plusBtn || !minusBtn) return;
-            
-            let isIndexViewActive = false;
-            let currentColumns = 4;
-            const sizeMap = { 2: '300px', 3: '200px', 4: '100px', 5: '50px' };
+            const indexGrid = document.getElementById('indexGrid');
+            let columns = 4;
 
-            function updateGridColumns() {
-                indexGrid.style.setProperty('--grid-columns', currentColumns);
-                indexGrid.style.setProperty('--thumbnail-size', sizeMap[currentColumns]);
-                minusBtn.disabled = currentColumns <= 2;
-                plusBtn.disabled = currentColumns >= 5;
-            }
+            const updateGridColumns = () => {
+                indexGrid.style.setProperty('--grid-columns', columns);
+                const newSize = 240 - (columns * 20);
+                indexGrid.style.setProperty('--thumbnail-size', `${Math.max(60, newSize)}px`);
+                minusBtn.disabled = columns <= 2;
+                plusBtn.disabled = columns >= 6;
+            };
 
-            plusBtn.addEventListener('click', () => { if (currentColumns < 5) { currentColumns++; updateGridColumns(); } });
-            minusBtn.addEventListener('click', () => { if (currentColumns > 2) { currentColumns--; updateGridColumns(); } });
-            
-            function toggleView() {
-                isIndexViewActive = !isIndexViewActive;
-                indexView.classList.toggle('active', isIndexViewActive);
-                document.body.style.overflow = isIndexViewActive ? 'hidden' : '';
-            }
-            
-            viewToggle.addEventListener('click', toggleView);
-            closeBtn.addEventListener('click', toggleView);
+            plusBtn.addEventListener('click', () => {
+                if (columns < 6) { columns++; updateGridColumns(); }
+            });
+
+            minusBtn.addEventListener('click', () => {
+                if (columns > 2) { columns--; updateGridColumns(); }
+            });
             updateGridColumns();
         }
     </script>
 </body>
-</html>```
+</html>
