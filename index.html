@@ -9,4 +9,268 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root{--background-color:#ffffff;--text-primary:#000000;--text-secondary:#666666;--font-main:"Poppins",sans-serif;--item-width:280px;--item-height:280px;--item-gap:30px;--border-color:#e0e0e0;--overlay-bg:rgba(255,255,255,0.95);--transition-speed:0.3s;--border-radius:12px}*{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font-main);background-color:var(--background-color);color:var(--text-primary);overflow-x:hidden;line-height:1.4}#intro-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background-color:var(--background-color);z-index:9999;display:flex;align-items:center;justify-content:center;transition:opacity .8s cubic-bezier(.77,0,.175,1)}#intro-overlay.hidden{opacity:0;pointer-events:none}#intro-logo{width:40vw;max-width:400px;transition:transform 1s cubic-bezier(.77,0,.175,1)}#intro-overlay.hidden #intro-logo{transform:scale(.1)}.site-content{opacity:0;animation:fadeIn .5s ease-in-out 1.2s forwards}@keyframes fadeIn{from{opacity:0}to{opacity:1}}.header{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;background:var(--background-color);border-bottom:1px solid var(--border-color)}.logo img{height:45px;width:auto}.view-toggle{background:var(--background-color);border:1px solid var(--border-color);color:var(--text-primary);padding:8px 16px;border-radius:var(--border-radius);cursor:pointer;transition:all var(--transition-speed) ease;font-family:var(--font-main);font-size:14px;font-weight:500}.view-toggle:hover{background:var(--text-primary);color:var(--background-color);transform:translateY(-1px)}.carousel-view{min-height:100vh;display:flex;align-items:center;position:relative;padding-top:80px}.carousel-container{display:flex;overflow-x:auto;overflow-y:hidden;gap:var(--item-gap);padding:60px 40px;width:100%;scroll-behavior:smooth;-ms-overflow-style:none;scrollbar-width:none;-webkit-mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent);mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent)}.carousel-container::-webkit-scrollbar{display:none}
-        .carousel-item{flex-shrink:0;width:var(--item-width);display:flex;flex-direction:column;cursor:pointer;transition:tra
+        .carousel-item{flex-shrink:0;width:var(--item-width);display:flex;flex-direction:column;cursor:pointer;transition:transform .3s cubic-bezier(.25,.8,.25,1),width .5s cubic-bezier(.77,0,.175,1);position:relative}
+        .carousel-item:hover{transform:translateY(-4px) scale(1.05);z-index:10}
+        .album-cover{width:100%;height:var(--item-height);background-color:#f0f0f0;background-size:cover;background-position:center;border-radius:var(--border-radius);margin-bottom:16px;transition:all var(--transition-speed) ease;box-shadow:0 4px 20px rgba(0,0,0,.08);position:relative;overflow:hidden}
+        .album-cover video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s ease .2s}
+        .action-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:20px;gap:10px;opacity:0;transition:opacity .4s ease;pointer-events:none}
+        .action-overlay a{text-decoration:none;color:white;background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);padding:10px 24px;border-radius:20px;font-size:14px;font-weight:500;transform:translateY(10px);opacity:0;transition:opacity .3s ease,transform .3s ease}
+        .action-overlay a:hover{background:rgba(255,255,255,0.25)}
+        .carousel-item.is-active .action-overlay{opacity:1;pointer-events:auto}
+        .carousel-item.is-active .action-overlay a{opacity:1;transform:translateY(0);transition-delay:0.2s}
+        .carousel-item.is-active .action-overlay a:nth-child(2){transition-delay:.25s}
+        .carousel-item.is-active .action-overlay a:nth-child(3){transition-delay:.3s}
+        .carousel-item.is-expanded{width:calc(var(--item-height)*1.778)}
+        .carousel-item.is-expanded .album-cover video{opacity:1}
+        .item-info{text-align:left}.item-title{font-weight:600;font-size:16px;margin-bottom:4px;color:var(--text-primary)}.item-artist{font-weight:400;font-size:14px;color:var(--text-secondary)}
+        .index-view{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--overlay-bg);backdrop-filter:blur(10px);z-index:200;opacity:0;visibility:hidden;transition:all var(--transition-speed) ease;padding:100px 40px 40px;overflow-y:auto}
+        .index-view.active{opacity:1;visibility:visible}
+        .index-grid{--grid-columns: 4; --thumbnail-size: 100px; display:grid; grid-template-columns:repeat(var(--grid-columns), 1fr); gap:20px;max-width:1400px;margin:0 auto; align-items: start;}
+        .grid-item{background:#fff;border-radius:var(--border-radius);padding:16px;box-shadow:0 4px 20px rgba(0,0,0,.05);cursor:pointer}
+        .item-header{display:flex;align-items:center;gap:15px}
+        .item-thumbnail{width:var(--thumbnail-size);height:var(--thumbnail-size);border-radius:8px;flex-shrink:0;background-color:#f0f0f0;background-size:cover;background-position:center; transition: width 0.3s ease, height 0.3s ease;}
+        .item-details .title{font-weight:600;font-size:16px;color:var(--text-primary)}
+        .item-details .artist{font-weight:400;color:var(--text-secondary);font-size:14px}
+        .details-section{max-height:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);padding-top:0}
+        .grid-item.is-album.is-expanded .details-section{max-height:500px;padding-top:15px}
+        .grid-item.is-single.is-expanded .details-section{max-height:60px; padding-top:15px}
+        .details-section ul{list-style:none;padding:15px 0 0 0;margin:0;border-top:1px solid #eee}
+        .details-section li{padding:8px 0;font-size:14px;color:var(--text-secondary)}
+        .details-section .credit-section{padding:15px 0 0 0;margin:0;border-top:1px solid #eee}
+        .details-section .credit-item{display:flex;justify-content:space-between;padding:8px 0;font-size:14px}
+        .details-section .credit-item .name{font-weight:500;color:var(--text-primary)}
+        .view-controls{position:fixed;top:30px;right:100px;z-index:210;display:flex;gap:5px}
+        .col-btn{background:#fff;border:1px solid var(--border-color);color:var(--text-primary);width:40px;height:40px;border-radius:50%;cursor:pointer;transition:all .2s ease;font-size:24px;font-weight:500}.col-btn:hover{background:var(--text-primary);color:var(--background-color)}.col-btn:disabled{opacity:0.5;cursor:not-allowed}
+        .close-btn{position:fixed;top:30px;right:40px;z-index:210;background:#fff;border:1px solid var(--border-color);color:var(--text-primary);width:40px;height:40px;border-radius:50%;cursor:pointer;transition:all var(--transition-speed) ease;font-family:serif;font-size:24px;line-height:40px;padding:0;text-align:center}.close-btn:hover{background:var(--text-primary);color:var(--background-color);transform:scale(1.05)}
+        #sentinel{width:100%;height:50px}
+    </style>
+</head>
+<body>
+    <div id="intro-overlay">
+        <img id="intro-logo" src="https://64.media.tumblr.com/fbaac6c418b3efe867fc896e29c8d863/973a2b545611b06c-91/s1280x1920/3f91e5bd659bcb37148ef07764e633c6212aac19.png" alt="Take A Daytrip Logo">
+    </div>
+
+    <div class="site-content">
+        <header class="header">
+            <div class="logo">
+                <img src="https://64.media.tumblr.com/fbaac6c418b3efe867fc896e29c8d863/973a2b545611b06c-91/s1280x1920/3f91e5bd659bcb37148ef07764e633c6212aac19.png" alt="Take A Daytrip Logo">
+            </div>
+            <button class="view-toggle" id="viewToggle">View All</button>
+        </header>
+        <main class="carousel-view" id="carouselView">
+            <div class="carousel-container" id="carouselContainer"></div>
+        </main>
+        <div class="index-view" id="indexView">
+            <div class="view-controls">
+                <button id="minus-btn" class="col-btn">-</button>
+                <button id="plus-btn" class="col-btn">+</button>
+            </div>
+            <button class="close-btn" id="closeBtn">&times;</button>
+            <div class="index-grid" id="indexGrid"></div>
+            <div id="sentinel"></div>
+        </div>
+    </div>
+
+    <script>
+        const AIRTABLE_CONFIG = {
+            token: 'patGvw0Eizo229tIk.540600d44b40ee31dc5e30e46e1255c4704f3447fc0f67ae7da736a59b40897b',
+            baseId: 'appn2YeNc6Sv40xdd',
+            tableName: 'Take A Daytrip Discography',
+            pageSize: 30
+        };
+        
+        let dataOffset = null;
+        let isFetching = false;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeApp();
+        });
+
+        async function initializeApp() {
+            console.log("DOM Loaded. Initializing App.");
+            try {
+                const introOverlay = document.getElementById('intro-overlay');
+                setTimeout(() => { introOverlay.classList.add('hidden'); }, 500);
+                setTimeout(() => { introOverlay.style.display = 'none'; }, 1500);
+                
+                // --- THIS IS THE NEW, RESILIENT LOGIC ---
+                setupStaticUI(); // Render the static parts of the UI immediately
+                const initialReleases = await fetchAndRenderReleases(true); // Fetch the first page
+                if (initialReleases) {
+                    renderCarousel(initialReleases); // Populate the carousel with the first page
+                    setupLazyLoader(); // Only set up the lazy loader if the first fetch was successful
+                } else {
+                    throw new Error("Failed to fetch initial data from Airtable.");
+                }
+            } catch (error) {
+                console.error("Critical initialization failure:", error);
+                const grid = document.getElementById('indexGrid');
+                if(grid) grid.innerHTML = `<p style="color: red; text-align: center; grid-column: 1 / -1;">Error: Could not load discography. Please check the console.</p>`;
+            }
+        }
+
+        async function fetchAirtableData(offset = null) {
+            let url = `https://api.airtable.com/v0/${AIRTABLE_CONFIG.baseId}/${encodeURIComponent(AIRTABLE_CONFIG.tableName)}?pageSize=${AIRTABLE_CONFIG.pageSize}&sort%5B0%5D%5Bfield%5D=Release Date&sort%5B0%5D%5Bdirection%5D=desc`;
+            if (offset) url += `&offset=${offset}`;
+
+            const response = await fetch(url, { headers: { 'Authorization': `Bearer ${AIRTABLE_CONFIG.token}` } });
+            if (!response.ok) {
+                console.error(`Airtable API Error: ${response.status} ${response.statusText}`);
+                const errorBody = await response.json();
+                console.error("Airtable Error Details:", errorBody);
+                throw new Error(`Airtable request failed with status ${response.status}`);
+            }
+            return response.json();
+        }
+        
+        function mapAirtableRecord(record) {
+            const fields = record.fields;
+            let credits = null;
+            if (fields.Credits && typeof fields.Credits === 'string') {
+                try {
+                    credits = JSON.parse(fields.Credits);
+                } catch (e) {
+                    console.warn(`Could not parse Credits JSON for record "${fields.Title}":`, fields.Credits);
+                }
+            }
+            return {
+                title: fields.Title || fields.Songs || 'Untitled',
+                artist: fields.Artists || 'Unknown Artist',
+                type: fields.Type || 'Single',
+                releaseDate: fields['Release Date'] || '',
+                albumArtUrl: fields.Artwork?.[0]?.url || '',
+                tracks: fields.Tracks ? fields.Tracks.split('\n') : [],
+                credits: credits,
+                videoUrl: fields['Video Link'] || '',
+                youtubeUrl: fields['YouTube Link'] || '',
+                spotifyUrl: fields['Spotify Link'] || '',
+                appleMusicUrl: fields['Apple Music Link'] || '',
+                showInCarousel: fields.ShowInCarousel === true
+            };
+        }
+
+        async function fetchAndRenderReleases(isInitialLoad = false) {
+            if (isFetching || (dataOffset === null && !isInitialLoad)) return null;
+            isFetching = true;
+
+            const data = await fetchAirtableData(dataOffset);
+            if (!data || !data.records) { isFetching = false; return null; }
+
+            const newReleases = data.records.map(mapAirtableRecord);
+            dataOffset = data.offset || null;
+
+            if (isInitialLoad) {
+                renderIndex(newReleases); // Render first batch in the grid
+                isFetching = false;
+                return newReleases; // Return data for carousel
+            } else {
+                renderIndex(newReleases); // Append new items to grid for lazy load
+            }
+            isFetching = false;
+        }
+        
+        function renderCarousel(releases) {
+            const carouselContainer = document.getElementById('carouselContainer');
+            if (!carouselContainer) return;
+            carouselContainer.innerHTML = '';
+            const carouselReleases = releases.filter(r => r.showInCarousel);
+            carouselReleases.forEach(release => {
+                const carouselItem = document.createElement('div');
+                carouselItem.className = 'carousel-item';
+                let videoContent = release.videoUrl ? `<video src="${release.videoUrl}" loop muted playsinline></video>` : '';
+                let watchButton = release.youtubeUrl ? `<a href="${release.youtubeUrl}" target="_blank">Watch on YouTube</a>` : '';
+                carouselItem.innerHTML = `<div class="album-cover" style="background-image: url(${release.albumArtUrl})">${videoContent}<div class="action-overlay">${watchButton}<a href="${release.spotifyUrl}" target="_blank">Listen on Spotify</a><a href="${release.appleMusicUrl}" target="_blank">Listen on Apple Music</a></div></div><div class="item-info"><div class="item-title">${release.title}</div><div class="item-artist">${release.artist}</div></div>`;
+                carouselContainer.appendChild(carouselItem);
+                
+                let actionTimer;
+                const video = carouselItem.querySelector('video');
+                carouselItem.addEventListener('mouseenter', () => {
+                    actionTimer = setTimeout(() => {
+                        carouselItem.classList.add('is-active');
+                        if (video) { carouselItem.classList.add('is-expanded'); video.play(); }
+                    }, 1500);
+                });
+                carouselItem.addEventListener('mouseleave', () => {
+                    clearTimeout(actionTimer);
+                    carouselItem.classList.remove('is-active');
+                    if (video) { carouselItem.classList.remove('is-expanded'); video.pause(); video.currentTime = 0; }
+                });
+            });
+        }
+        
+        function renderIndex(releasesToAppend) {
+            const indexGrid = document.getElementById('indexGrid');
+            const sentinel = document.getElementById('sentinel');
+            if (!indexGrid || !sentinel) return;
+
+            releasesToAppend.forEach(release => {
+                const gridItem = document.createElement('div');
+                gridItem.className = 'grid-item';
+                gridItem.classList.add(release.type === 'Album' || release.type === 'EP' ? 'is-album' : 'is-single');
+                const tracks = release.tracks || [];
+                let detailsHtml = '';
+                if ((release.type === 'Album' || release.type === 'EP') && tracks.length > 0) {
+                    const trackItems = tracks.map(track => `<li>${track}</li>`).join('');
+                    detailsHtml = `<ul>${trackItems}</ul>`;
+                } else if (release.credits) {
+                    const creditItems = Object.keys(release.credits).map(role => `<div class="credit-item"><span class="name">${role}</span></div>`).join('');
+                    detailsHtml = `<div class="credit-section">${creditItems}</div>`;
+                }
+                gridItem.innerHTML = `<div class="item-header"><div class="item-thumbnail" style="background-image: url(${release.albumArtUrl})"></div><div class="item-details"><div class="title">${release.title}</div><div class="artist">${release.artist}</div></div></div><div class="details-section">${detailsHtml}</div>`;
+                
+                let expandTimer;
+                gridItem.addEventListener('mouseenter', () => { expandTimer = setTimeout(() => gridItem.classList.add('is-expanded'), 300); });
+                gridItem.addEventListener('mouseleave', () => { clearTimeout(expandTimer); gridItem.classList.remove('is-expanded'); });
+
+                indexGrid.insertBefore(gridItem, sentinel);
+            });
+        }
+
+        function setupLazyLoader() {
+            const sentinel = document.getElementById('sentinel');
+            const indexView = document.querySelector('.index-view');
+            if (!sentinel || !indexView) return;
+            const observer = new IntersectionObserver(entries => {
+                if (entries[0].isIntersecting && !isFetching && dataOffset) {
+                    fetchAndRenderReleases();
+                }
+            }, { root: indexView });
+            observer.observe(sentinel);
+        }
+
+        function setupStaticUI() {
+            const indexGrid = document.getElementById('indexGrid');
+            const viewToggle = document.getElementById('viewToggle');
+            const closeBtn = document.getElementById('closeBtn');
+            const indexView = document.getElementById('indexView');
+            const plusBtn = document.getElementById('plus-btn');
+            const minusBtn = document.getElementById('minus-btn');
+            if (!indexGrid || !viewToggle || !closeBtn || !indexView || !plusBtn || !minusBtn) return;
+            
+            let isIndexViewActive = false;
+            let currentColumns = 4;
+            const sizeMap = { 2: '300px', 3: '200px', 4: '100px', 5: '50px' };
+
+            function updateGridColumns() {
+                indexGrid.style.setProperty('--grid-columns', currentColumns);
+                indexGrid.style.setProperty('--thumbnail-size', sizeMap[currentColumns]);
+                minusBtn.disabled = currentColumns <= 2;
+                plusBtn.disabled = currentColumns >= 5;
+            }
+
+            plusBtn.addEventListener('click', () => { if (currentColumns < 5) { currentColumns++; updateGridColumns(); } });
+            minusBtn.addEventListener('click', () => { if (currentColumns > 2) { currentColumns--; updateGridColumns(); } });
+            
+            function toggleView() {
+                isIndexViewActive = !isIndexViewActive;
+                indexView.classList.toggle('active', isIndexViewActive);
+                document.body.style.overflow = isIndexViewActive ? 'hidden' : '';
+            }
+            
+            viewToggle.addEventListener('click', toggleView);
+            closeBtn.addEventListener('click', toggleView);
+            updateGridColumns();
+        }
+    </script>
+</body>
+</html>```
