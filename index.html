@@ -81,7 +81,7 @@
         const AIRTABLE_CONFIG = {
             token: 'patGvw0Eizo229tIk.9502e57c8a366fcb16417a1b3da5575f1f2a89ad0c5973dc41184732dc4920fb',
             baseId: 'appn2YeNc6Sv40xdd',
-            tableName: 'Take A Daytrip Discography',
+            tableName: 'Songs', // CORRECTED: The table is 'Songs', not the name of the base.
             pageSize: 30
         };
         
@@ -158,7 +158,7 @@
                 artist: fields.Artists || 'Unknown Artist',
                 type: fields.Type || 'Single',
                 releaseDate: fields['Release Date'] || '',
-                albumArtUrl: fields.Artwork?.[0]?.url || '',
+                albumArtUrl: fields.Artwork?.[0]?.url || fields['Main Artwork Link'] || '', // Fallback for artwork
                 tracks: fields.Tracks ? fields.Tracks.split('\n').filter(t => t.trim() !== '') : [],
                 credits: credits,
                 videoUrl: fields['Video Link'] || '',
@@ -178,6 +178,7 @@
 
         function renderCarousel(releases) {
             const container = document.getElementById('carouselContainer');
+            if (!container) return;
             releases.forEach(release => {
                 const item = document.createElement('div');
                 item.className = 'carousel-item';
@@ -224,6 +225,7 @@
         
         function renderIndex(releases, isInitialRender = false) {
             const grid = document.getElementById('indexGrid');
+            if (!grid) return;
             if (isInitialRender) grid.innerHTML = '';
             
             releases.forEach(release => {
@@ -265,6 +267,7 @@
 
         function setupLazyLoader() {
             const sentinel = document.getElementById('sentinel');
+            if (!sentinel) return;
             const observer = new IntersectionObserver(async (entries) => {
                 if (entries[0].isIntersecting && !isFetching && airtableOffset) {
                     const newReleases = await fetchAirtableReleases();
