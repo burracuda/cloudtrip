@@ -3,22 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Take A Daytrip - The Definitive Archive</title>
-    <meta name="description" content="The Definitive Daytrip Archive, a complete, interactive discography of the music production duo.">
-    <meta name="keywords" content="Take A Daytrip, discography, music production, hip hop, pop">
+
+    <!-- SEO & Social Sharing -->
+    <title>Take A Daytrip</title>
+    <meta name="description" content="The official interactive discography of the production duo Take A Daytrip. Explore their work, from SoundCloud gems to global hits.">
+    
+    <!-- Favicon & App Icons -->
+    <link rel="icon" type="image/png" href="https://64.media.tumblr.com/433e6b479833a3a33aa46ca1eaa129aa/49c64e636adece9d-7c/s75x75_c1/53d2a1fc2ac4854588590f1f660c49656a3a719e.pnj" sizes="32x32">
+    <link rel="apple-touch-icon" href="https://64.media.tumblr.com/48d91a06ffa63572d769df75df43f699/49c64e636adece9d-03/s250x400/a9e6606ea872271f6251372af5613373a69d41f2.jpg">
+
+    <!-- Open Graph (for Facebook, Discord, etc.) -->
+    <meta property="og:title" content="Take A Daytrip">
+    <meta property="og:description" content="The official interactive discography.">
+    <meta property="og:image" content="https://64.media.tumblr.com/48f6d99837e1109e96729565d9270dce/49c64e636adece9d-12/s1280x1920/e31c9e6282f30d87e57d4c00515bc2652f51b2c2.jpg">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://64.media.tumblr.com/48f6d99837e1109e96729565d9270dce/49c64e636adece9d-12/s1280x1920/e31c9e6282f30d87e57d4c00515bc2652f51b2c2.jpg">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        :root{--background-color:#ffffff;--text-primary:#000000;--text-secondary:#666666;--font-main:"Poppins",sans-serif;--item-width:280px;--item-height:280px;--item-gap:30px;--border-color:#e0e0e0;--overlay-bg:rgba(255,255,255,0.9);--transition-speed:0.3s;--border-radius:12px}*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:var(--font-main);background-color:var(--background-color);color:var(--text-primary);overflow-x:hidden;line-height:1.4}#intro-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background-color:var(--background-color);z-index:9999;display:flex;align-items:center;justify-content:center;transition:opacity .8s cubic-bezier(.77,0,.175,1)}#intro-overlay.hidden{opacity:0;pointer-events:none}#intro-logo{width:40vw;max-width:400px;transition:transform 1s cubic-bezier(.77,0,.175,1)}#intro-overlay.hidden #intro-logo{transform:scale(.1)}.site-content{opacity:0;animation:fadeIn .5s ease-in-out 1.2s forwards}@keyframes fadeIn{from{opacity:0}to{opacity:1}}.header{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.8);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border-color)}.logo img{height:45px;width:auto}.nav-links{display:flex;align-items:center;gap:20px}.nav-links a, .view-toggle{text-decoration:none;background:transparent;border:1px solid var(--border-color);color:var(--text-primary);padding:8px 16px;border-radius:var(--border-radius);cursor:pointer;transition:all var(--transition-speed) ease;font-family:var(--font-main);font-size:14px;font-weight:500}.nav-links a:hover, .view-toggle:hover{background:var(--text-primary);color:var(--background-color);transform:translateY(-1px)}.carousel-view{min-height:100vh;display:flex;align-items:center;position:relative;padding-top:80px}.carousel-container{display:flex;overflow-x:auto;overflow-y:hidden;gap:var(--item-gap);padding:60px 40px;width:100%;scroll-behavior:smooth;-ms-overflow-style:none;scrollbar-width:none;-webkit-mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent);mask-image:linear-gradient(to right,transparent,black 5%,black 95%,transparent)}
-        .carousel-container::-webkit-scrollbar{display:none}
+        :root{--background-color:#ffffff;--text-primary:#000000;--text-secondary:#666666;--font-main:"Poppins",sans-serif;--item-width:280px;--item-height:280px;--item-gap:30px;--border-color:#e0e0e0;--overlay-bg:rgba(255,255,255,0.95);--transition-speed:0.25s;--border-radius:12px; --button-blue: #0061f7;}*{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font-main);background-color:var(--background-color);color:var(--text-primary);overflow-x:hidden;line-height:1.4}#intro-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background-color:var(--background-color);z-index:9999;display:flex;align-items:center;justify-content:center;transition:opacity .8s cubic-bezier(.77,0,.175,1)}#intro-overlay.hidden{opacity:0;pointer-events:none}#intro-logo{width:40vw;max-width:400px;transition:transform 1s cubic-bezier(.77,0,.175,1)}#intro-overlay.hidden #intro-logo{transform:scale(.1)}.site-content{opacity:0;animation:fadeIn .5s ease-in-out 1.2s forwards}@keyframes fadeIn{from{opacity:0}to{opacity:1}}.header{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 40px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border-color)}.logo img{height:45px;width:auto}.nav-links{display:flex;gap:15px;align-items:center;}.nav-links a,.view-toggle{text-decoration:none;background:var(--background-color);border:1px solid var(--border-color);color:var(--text-primary);padding:8px 16px;border-radius:var(--border-radius);cursor:pointer;transition:all var(--transition-speed) ease;font-family:var(--font-main);font-size:14px;font-weight:500}.nav-links a:hover,.view-toggle:hover{background-color:var(--button-blue);color:var(--background-color);transform:translateY(-1px)}.carousel-view{min-height:100vh;display:flex;align-items:center;position:relative;padding-top:80px}.carousel-container{display:flex;overflow-x:auto;overflow-y:hidden;gap:var(--item-gap);padding:60px 40px;width:100%;scroll-behavior:smooth;-ms-overflow-style:none;scrollbar-width:none;-webkit-mask-image:linear-gradient(to right,transparent,black 4%,black 96%,transparent);mask-image:linear-gradient(to right,transparent,black 4%,black 96%,transparent)}.carousel-container::-webkit-scrollbar{display:none}
         .carousel-item{flex-shrink:0;width:var(--item-width);display:flex;flex-direction:column;cursor:pointer;transition:transform .3s cubic-bezier(.25,.8,.25,1),width .5s cubic-bezier(.77,0,.175,1);position:relative}
         .carousel-item:hover{transform:translateY(-4px) scale(1.05);z-index:10}
         .album-cover{width:100%;height:var(--item-height);background-color:#f0f0f0;background-size:cover;background-position:center;border-radius:var(--border-radius);margin-bottom:16px;transition:all var(--transition-speed) ease;box-shadow:0 4px 20px rgba(0,0,0,.08);position:relative;overflow:hidden}
         .album-cover video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s ease .2s}
-        .action-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:20px;gap:10px;opacity:0;transition:opacity .4s ease;pointer-events:none}
-        .action-overlay a{text-decoration:none;color:white;background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);padding:10px 24px;border-radius:20px;font-size:14px;font-weight:500;transform:translateY(10px);opacity:0;transition:opacity .3s ease,transform .3s ease}
-        .action-overlay a:hover{background:rgba(255,255,255,0.25)}
+        .action-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent 60%);display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:20px;gap:10px;opacity:0;transition:opacity .4s ease;pointer-events:none}
+        .action-overlay a{text-decoration:none;color:white;background:rgba(255,255,255,0.1);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.25);padding:10px 24px;border-radius:20px;font-size:14px;font-weight:500;transform:translateY(10px);opacity:0;transition: all .3s ease;}
+        .action-overlay a:hover{background:rgba(255,255,255,0.25);}
         .carousel-item.is-active .action-overlay{opacity:1;pointer-events:auto}
         .carousel-item.is-active .action-overlay a{opacity:1;transform:translateY(0);transition-delay:0.2s}
         .carousel-item.is-active .action-overlay a:nth-child(2){transition-delay:.25s}
@@ -26,43 +40,54 @@
         .carousel-item.is-expanded{width:calc(var(--item-height)*1.778)}
         .carousel-item.is-expanded .album-cover video{opacity:1}
         .item-info{text-align:left}.item-title{font-weight:600;font-size:16px;margin-bottom:4px;color:var(--text-primary)}.item-artist{font-weight:400;font-size:14px;color:var(--text-secondary)}
-        .index-view{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--overlay-bg);backdrop-filter:blur(10px);z-index:200;opacity:0;visibility:hidden;transition:all var(--transition-speed) ease;padding:100px 40px 40px;overflow-y:auto}
+        .index-view{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--overlay-bg);backdrop-filter:blur(10px);z-index:200;opacity:0;visibility:hidden;transition:all var(--transition-speed) ease;padding:100px 40px 40px;overflow-y:auto;overflow-x:hidden;}
         .index-view.active{opacity:1;visibility:visible}
-        .index-grid{--grid-columns: 4; --thumbnail-size: 100px; display:grid; grid-template-columns:repeat(var(--grid-columns), 1fr); gap:20px;max-width:1400px;margin:0 auto; align-items: start;}
+        .index-grid-container, .about-grid{max-width:1400px;margin:0 auto}
+        .index-grid{--grid-columns: 3; display:grid; grid-template-columns:repeat(var(--grid-columns), minmax(0, 1fr)); gap:20px; align-items: start;}
         .grid-item{background:#fff;border-radius:var(--border-radius);padding:16px;box-shadow:0 4px 20px rgba(0,0,0,.05);cursor:pointer}
-        .item-header{display:flex;align-items:center;gap:15px}
-        .item-thumbnail{width:var(--thumbnail-size);height:var(--thumbnail-size);border-radius:8px;flex-shrink:0;background-color:#f0f0f0;background-size:cover;background-position:center; transition: width 0.3s ease, height 0.3s ease;}
-        .item-details .title{font-weight:600;font-size:16px;color:var(--text-primary)}
-        .item-details .artist{font-weight:400;color:var(--text-secondary);font-size:14px}
-        .details-section{max-height:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);padding-top:0}
-        .grid-item.is-album.is-expanded .details-section{max-height:500px;padding-top:15px}
-        .grid-item.is-single.is-expanded .details-section{max-height:100px; padding-top:15px}
-        .details-section ul{list-style:none;padding:15px 0 0 0;margin:0;border-top:1px solid #eee}
+        .item-header{display:flex;align-items:center;gap:15px; overflow: hidden;}
+        .item-thumbnail{width:var(--thumbnail-size, 100px);height:var(--thumbnail-size, 100px);border-radius:8px;flex-shrink:0;background-color:#f0f0f0;background-size:cover;background-position:center; transition: width var(--transition-speed) ease, height var(--transition-speed) ease;}
+        .item-details{overflow: hidden; flex-grow: 1;}
+        .item-details .title{font-weight:600;font-size:16px;color:var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+        .item-details .artist{font-weight:400;color:var(--text-secondary);font-size:14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+        .details-section{max-height:0;overflow:hidden;transition:all var(--transition-speed) ease-in-out; padding-top:0; border-top:1px solid transparent;}
+        .grid-item.is-expanded .details-section{max-height:500px;padding-top:15px; border-top:1px solid #eee;}
+        .details-section ul{list-style-type:decimal;padding-left:20px;margin:0;}
         .details-section li{padding:8px 0;font-size:14px;color:var(--text-secondary)}
-        .details-section .credit-section{padding:15px 0 0 0;margin:0;border-top:1px solid #eee}
+        .details-section .credit-section{padding:0; margin:0;}
         .details-section .credit-item{display:flex;justify-content:space-between;padding:8px 0;font-size:14px}
         .details-section .credit-item .name{font-weight:500;color:var(--text-primary)}
-        .view-controls{position:fixed;top:30px;right:180px;z-index:210;display:flex;gap:5px}
-        .col-btn{background:#fff;border:1px solid var(--border-color);color:var(--text-primary);width:40px;height:40px;border-radius:50%;cursor:pointer;transition:all .2s ease;font-size:24px;font-weight:500}.col-btn:hover{background:var(--text-primary);color:var(--background-color)}.col-btn:disabled{opacity:0.5;cursor:not-allowed}
-        .close-btn{position:fixed;top:30px;right:40px;z-index:210;background:#fff;border:1px solid var(--border-color);color:var(--text-primary);width:40px;height:40px;border-radius:50%;cursor:pointer;transition:all var(--transition-speed) ease;font-family:serif;font-size:24px;line-height:40px;padding:0;text-align:center}.close-btn:hover{background:var(--text-primary);color:var(--background-color);transform:scale(1.05)}
-        #sentinel{width:100%;height:50px}
-        .error-message{text-align:center;padding:50px;font-size:18px;color:var(--text-secondary)}
-        .footer{padding:40px;text-align:center;border-top:1px solid var(--border-color);margin-top:50px}.footer-links a{color:var(--text-secondary);text-decoration:none;margin:0 15px;transition:color .2s ease}.footer-links a:hover{color:var(--text-primary)}
+        .view-controls{position:fixed;top:30px;right:100px;z-index:210;display:flex;gap:5px}
+        .col-btn{background:#fff;border:1px solid var(--border-color);color:var(--text-primary);width:40px;height:40px;border-radius:50%;cursor:pointer;transition:all .2s ease;font-size:24px;font-weight:500}.col-btn:hover{background-color:var(--button-blue);color:var(--background-color)}.col-btn:disabled{opacity:0.5;cursor:not-allowed}
+        .close-btn{position:fixed;top:30px;right:40px;z-index:210;background:#fff;border:1px solid var(--border-color);color:var(--text-primary);width:40px;height:40px;border-radius:50%;cursor:pointer;transition:all var(--transition-speed) ease;font-family:serif;font-size:24px;line-height:40px;padding:0;text-align:center}.close-btn:hover{background-color:var(--button-blue);color:var(--background-color);transform:scale(1.05)}
+        #loadMoreBtn{display:block;margin:40px auto;padding:12px 30px;background:#fff;border:1px solid var(--border-color);border-radius:var(--border-radius);font-family:var(--font-main);font-size:14px;font-weight:500;cursor:pointer;transition:all .2s ease}.load-more-container{text-align:center}.load-more-container.hidden{display:none}
+        #loadMoreBtn:hover{background:var(--button-blue);color:var(--background-color);}
+        #loadMoreBtn:disabled{opacity:0.6;cursor:not-allowed;}
+        .fixed-footer{position:fixed;bottom:20px;right:40px;z-index:50;opacity:0.3;transition:opacity .3s ease}.fixed-footer:hover{opacity:1}.fixed-footer a{color:var(--text-secondary);text-decoration:none;margin-left:20px;font-size:14px}.fixed-footer a:hover{color:var(--text-primary)}
+        .about-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--overlay-bg);backdrop-filter:blur(10px);z-index:200;opacity:0;visibility:hidden;transition:all var(--transition-speed) ease;display:flex;align-items:center;justify-content:center;padding:40px}
+        .about-modal.active{opacity:1;visibility:visible}
+        .about-modal .about-content{position:relative;display:flex;flex-direction:column;gap:25px;align-items:center;padding:40px;max-width:600px;margin:auto;background:#fff;border-radius:var(--border-radius);box-shadow:0 10px 40px rgba(0,0,0,.1);text-align:center}
+        .about-text{flex-basis:auto}
+        .about-image-container{width:100%;flex-basis:auto;display:flex;justify-content:center;align-items:center}
+        .about-image-container img{max-width:100%;height:auto;border-radius:8px}
+        .about-content h2{font-size:32px;font-weight:600;margin-bottom:15px}
+        .about-content p{margin-bottom:10px;line-height:1.7;color:var(--text-secondary);font-size:16px}
+        .about-modal .close-btn{position:absolute;top:15px;right:15px}
     </style>
 </head>
 <body>
     <div id="intro-overlay">
-        <img id="intro-logo" src="https://64.media.tumblr.com/fbaac6c418b3efe867fc896e29c8d863/973a2b545611b06c-91/s1280x1920/3f91e5bd659bcb37148ef07764e633c6212aac19.png" alt="Take A Daytrip Logo">
+        <img id="intro-logo" src="https://64.media.tumblr.com/15aee3ab226c9e23898bbe7018a60c5a/ee615f4baaba8f8c-69/s2048x3072/48ebd1be1abcacc28da7d2cf5a728138bd8d1306.pnj" alt="Take A Daytrip Logo">
     </div>
 
     <div class="site-content">
         <header class="header">
             <div class="logo">
-                <img src="https://64.media.tumblr.com/fbaac6c418b3efe867fc896e29c8d863/973a2b545611b06c-91/s1280x1920/3f91e5bd659bcb37148ef07764e633c6212aac19.png" alt="Take A Daytrip Logo">
+                <img src="https://64.media.tumblr.com/15aee3ab226c9e23898bbe7018a60c5a/ee615f4baaba8f8c-69/s2048x3072/48ebd1be1abcacc28da7d2cf5a728138bd8d1306.pnj" alt="Take A Daytrip Logo">
             </div>
             <div class="nav-links">
-                <a href="#" id="aboutLink">About</a>
-                <button class="view-toggle" id="viewToggle">View All</button>
+                <a href="#" id="aboutBtn" aria-label="About this project">About</a>
+                <button class="view-toggle" id="viewToggle" aria-label="View all releases">View All</button>
             </div>
         </header>
         <main class="carousel-view" id="carouselView">
@@ -70,121 +95,137 @@
         </main>
         <div class="index-view" id="indexView">
             <div class="view-controls">
-                <button id="minus-btn" class="col-btn">-</button>
-                <button id="plus-btn" class="col-btn">+</button>
+                <button id="minus-btn" class="col-btn" aria-label="Decrease number of columns">-</button>
+                <button id="plus-btn" class="col-btn" aria-label="Increase number of columns">+</button>
             </div>
-            <button class="close-btn" id="closeBtn">&times;</button>
-            <div class="index-grid" id="indexGrid"></div>
-            <div id="sentinel"></div>
+            <button class="close-btn" id="closeBtn" aria-label="Close view all mode">&times;</button>
+            <div class="index-grid-container">
+                <div class="index-grid" id="indexGrid"></div>
+                <div class="load-more-container" id="loadMoreContainer">
+                    <button id="loadMoreBtn">Show More</button>
+                </div>
+            </div>
         </div>
-        
-        <footer class="footer">
-            <div class="footer-links">
-                <a href="https://twitter.com/takeadaytrip" target="_blank">Twitter</a>
-                <a href="https://www.instagram.com/takeadaytrip/" target="_blank">Instagram</a>
-                <a href="https://soundcloud.com/takeadaytrip" target="_blank">SoundCloud</a>
-                <a href="https://daytrip.world/" target="_blank">Merchandise</a>
+        <div class="fixed-footer">
+            <a href="https://twitter.com/takeadaytrip" target="_blank" rel="noopener noreferrer">Twitter</a>
+            <a href="https://www.instagram.com/takeadaytrip/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://soundcloud.com/takeadaytrip" target="_blank" rel="noopener noreferrer">SoundCloud</a>
+            <a href="https://no-idle.myshopify.com/" target="_blank" rel="noopener noreferrer">Merch</a>
+        </div>
+        <div class="about-modal" id="aboutModal">
+            <button class="close-btn" id="aboutCloseBtn" aria-label="Close about modal">&times;</button>
+            <div class="about-content">
+                 <div class="about-image-container">
+                    <img src="https://64.media.tumblr.com/6631383efc91170061b9e8d7f908ef99/530e84fd41c196f4-bc/s540x810/65c0c0c5bb320471691051e024c2fc4a201cae0f.gifv" alt="Take A Daytrip animated artwork" class="about-image">
+                 </div>
+                 <div class="about-text">
+                    <h2>Our Vision</h2>
+                    <p>Our journey is a constant search. We're chasing new sounds, melding genres, and connecting cultures from across the globe. This isn't just a discography; it's a map of that exploration.</p><p>It's for the collaborators who pushed us, the artists who trusted us, and the fans who came along for the ride.</p>
+                 </div>
             </div>
-        </footer>
+        </div>
     </div>
 
     <script>
-        const AIRTABLE_CONFIG = {
-            token: 'patGvw0Eizo229tIk.9502e57c8a366fcb16417a1b3da5575f1f2a89ad0c5973dc41184732dc4920fb',
-            baseId: 'appn2YeNc6Sv40xdd',
-            tableName: 'Songs',
-            pageSize: 50 
-        };
-        
-        let airtableOffset = 'start';
-        let isFetching = false;
-        let allReleases = [];
-
-        document.addEventListener('DOMContentLoaded', async () => {
+        // --- APPLICATION LOGIC ---
+        document.addEventListener('DOMContentLoaded', () => {
             const introOverlay = document.getElementById('intro-overlay');
-            setTimeout(() => introOverlay.classList.add('hidden'), 500);
-            setTimeout(() => introOverlay.style.display = 'none', 1500);
-            
-            try {
-                const initialData = await fetchAirtableReleases();
-                if (initialData) {
-                    initializeApp(initialData);
-                }
-            } catch (error) {
-                console.error("Critical initialization failure:", error);
-                const mainContent = document.querySelector('.site-content') || document.body;
-                mainContent.innerHTML = `<div class="error-message"><h1>Error: Could not load discography.</h1><p>Please check the console for details or try again later.</p></div>`;
-            }
+
+            // Fetch data from external JSON file
+            fetch('data.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(discographyData => {
+                    // Hide intro animation after a short delay
+                    setTimeout(() => { introOverlay.classList.add('hidden'); }, 500);
+                    setTimeout(() => { introOverlay.style.display = 'none'; }, 1500);
+
+                    // Initialize the application with the fetched data
+                    initializeApp(discographyData);
+                })
+                .catch(error => {
+                    console.error('Error loading discography data:', error);
+                    // Optionally, display an error message to the user on the page
+                    document.body.innerHTML = '<p style="text-align:center; padding-top: 50px;">Could not load discography data. Please try again later.</p>';
+                });
         });
-        
-        async function fetchAirtableReleases() {
-            if (isFetching || airtableOffset === null) return;
-            isFetching = true;
 
-            let url = `https://api.airtable.com/v0/${AIRTABLE_CONFIG.baseId}/${encodeURIComponent(AIRTABLE_CONFIG.tableName)}?pageSize=${AIRTABLE_CONFIG.pageSize}&sort%5B0%5D%5Bfield%5D=Release Date&sort%5B0%5D%5Bdirection%5D=desc`;
-            if (airtableOffset && airtableOffset !== 'start') {
-                url += `&offset=${airtableOffset}`;
-            }
+        function initializeApp(releases) {
+            // Data is already sorted by the build script, but a client-side sort is a good fallback.
+            releases.sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate));
 
-            try {
-                const response = await fetch(url, { headers: { 'Authorization': `Bearer ${AIRTABLE_CONFIG.token}` } });
-                if (!response.ok) {
-                    throw new Error(`Airtable request failed with status ${response.status}`);
-                }
-                const data = await response.json();
-                airtableOffset = data.offset || null;
-                const newReleases = data.records.map(mapAirtableRecord).filter(r => r.albumArtUrl); // Filter out records without artwork
-                allReleases = [...allReleases, ...newReleases];
-                return newReleases;
-            } finally {
-                isFetching = false;
-            }
-        }
-
-        function mapAirtableRecord(record) {
-            const fields = record.fields;
-            // The 'Artwork' field is an attachment array. We need the URL from the first attachment.
-            const artworkUrl = fields.Artwork && fields.Artwork.length > 0 ? fields.Artwork[0].url : null;
-            
-            return {
-                title: fields.Title || 'Untitled',
-                // IMPORTANT: Assumes 'Artists' is now a "Single line text" field in Airtable.
-                artist: fields.Artists || 'Unknown Artist',
-                type: fields.Type || 'Single',
-                releaseDate: fields['Release Date'] || '',
-                albumArtUrl: artworkUrl,
-                tracks: fields.Tracks ? fields.Tracks.split('\n').filter(t => t.trim() !== '') : [],
-                credits: fields.Credits ? { "Producer": "Take A Daytrip" } : null, // Simplified credits
-                videoUrl: fields['Video Link'] || '',
-                youtubeUrl: fields['YouTube Link'] || '',
-                spotifyUrl: fields['Spotify Link'] || '',
-                appleMusicUrl: fields['Apple Music Link'] || '',
-                showInCarousel: fields.ShowInCarousel === true
-            };
-        }
-
-        function initializeApp(initialReleases) {
-            renderCarousel(initialReleases.filter(r => r.showInCarousel));
-            renderIndex(initialReleases);
-            setupStaticUI();
-            setupLazyLoader();
-        }
-        
-        function renderCarousel(releases) {
             const carouselContainer = document.getElementById('carouselContainer');
-            if(!carouselContainer) return;
-            carouselContainer.innerHTML = '';
+            const indexGrid = document.getElementById('indexGrid');
+            const viewToggle = document.getElementById('viewToggle');
+            const closeBtn = document.getElementById('closeBtn');
+            const indexView = document.getElementById('indexView');
+            const plusBtn = document.getElementById('plus-btn');
+            const minusBtn = document.getElementById('minus-btn');
+            const loadMoreContainer = document.getElementById('loadMoreContainer');
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            const aboutBtn = document.getElementById('aboutBtn');
+            const aboutModal = document.getElementById('aboutModal');
+            const aboutCloseBtn = document.getElementById('aboutCloseBtn');
             
-            releases.forEach(release => {
+            const carouselReleases = releases.slice(0, 15);
+            renderCarousel(carouselReleases);
+            
+            let currentlyRenderedCount = 0;
+            const BATCH_SIZE = 20;
+
+            function renderIndexBatch() {
+                loadMoreBtn.textContent = "Loading...";
+                loadMoreBtn.disabled = true;
+
+                setTimeout(() => {
+                    const itemsToRender = releases.slice(currentlyRenderedCount, currentlyRenderedCount + BATCH_SIZE);
+                    const fragment = document.createDocumentFragment();
+                    itemsToRender.forEach(release => {
+                        const gridItem = createGridItem(release);
+                        fragment.appendChild(gridItem);
+                    });
+                    indexGrid.appendChild(fragment);
+                    currentlyRenderedCount = indexGrid.children.length;
+
+                    loadMoreBtn.textContent = "Show More";
+                    loadMoreBtn.disabled = false;
+
+                    if (currentlyRenderedCount >= releases.length) {
+                        loadMoreContainer.classList.add('hidden');
+                    }
+                }, 100);
+            }
+            
+            renderIndexBatch();
+
+            loadMoreBtn.addEventListener('click', renderIndexBatch);
+            
+            let isIndexViewActive = false;
+            let currentColumns = 3;
+            const sizeMap = { 2: '300px', 3: '200px', 4: '100px', 5: '60px' };
+
+            function renderCarousel(carouselItems) {
+                carouselContainer.innerHTML = '';
+                 carouselItems.forEach(release => {
+                    const carouselItem = createCarouselItem(release);
+                    carouselContainer.appendChild(carouselItem);
+                });
+            }
+
+            function createCarouselItem(release) {
                 const carouselItem = document.createElement('div');
                 carouselItem.className = 'carousel-item';
                 
-                const videoContent = release.videoUrl ? `<video src="${release.videoUrl}" loop muted playsinline></video>` : '';
-                const links = [
-                    { href: release.youtubeUrl, text: 'YouTube' },
-                    { href: release.spotifyUrl, text: 'Spotify' },
-                    { href: release.appleMusicUrl, text: 'Apple Music' }
-                ].filter(link => link.href).map(link => `<a href="${link.href}" target="_blank" rel="noopener noreferrer">${link.text}</a>`).join('');
+                let videoContent = release.videoUrl ? `<video src="${release.videoUrl}" loop muted playsinline></video>` : '';
+                let links = [
+                    {url: release.youtubeUrl, text: "YouTube"},
+                    {url: release.spotifyUrl, text: "Spotify"},
+                    {url: release.appleMusicUrl, text: "Apple Music"}
+                ].filter(link => link.url).map(link => `<a href="${link.url}" target="_blank" rel="noopener noreferrer">${link.text}</a>`).join('');
 
                 carouselItem.innerHTML = `
                     <div class="album-cover" style="background-image: url('${release.albumArtUrl}')">
@@ -195,7 +236,6 @@
                         <div class="item-title">${release.title}</div>
                         <div class="item-artist">${release.artist}</div>
                     </div>`;
-                carouselContainer.appendChild(carouselItem);
                 
                 let actionTimer;
                 const video = carouselItem.querySelector('video');
@@ -204,7 +244,7 @@
                         carouselItem.classList.add('is-active');
                         if (video) {
                             carouselItem.classList.add('is-expanded');
-                            video.play().catch(e => console.error("Video play failed:", e));
+                            video.play().catch(e => {});
                         }
                     }, 1500);
                 });
@@ -216,84 +256,96 @@
                         video.currentTime = 0;
                     }
                 });
-            });
-        }
-        
-        function renderIndex(releases, isAppending = false) {
-            const indexGrid = document.getElementById('indexGrid');
-            if (!isAppending) {
-                indexGrid.innerHTML = '';
+                return carouselItem;
             }
-            
-            releases.forEach(release => {
+
+            function createGridItem(release) {
                 const gridItem = document.createElement('div');
                 gridItem.className = 'grid-item';
+                
                 if (release.type === 'Album') gridItem.classList.add('is-album');
                 else gridItem.classList.add('is-single');
 
                 let detailsHtml = '';
-                if (release.type === 'Album' && release.tracks.length > 0) {
-                    detailsHtml = `<ul>${release.tracks.map(track => `<li>${track}</li>`).join('')}</ul>`;
+                if (release.type === 'Album' && release.tracklist && release.tracklist.length > 0) {
+                    const trackItems = release.tracklist.map(track => `<li>${track}</li>`).join('');
+                    detailsHtml = `<ul>${trackItems}</ul>`;
                 } else if (release.credits) {
-                    detailsHtml = `<div class="credit-section"><div class="credit-item"><span class="name">Producer</span></div></div>`;
+                    detailsHtml = `<div class="credit-section"><div class="credit-item"><span class="name">${release.credits}</span></div></div>`;
                 }
                 
+                const titleEl = document.createElement('div');
+                titleEl.className = 'title';
+                titleEl.textContent = release.title;
+                titleEl.title = release.title;
+
+                const artistEl = document.createElement('div');
+                artistEl.className = 'artist';
+                artistEl.textContent = release.artist;
+                artistEl.title = release.artist;
+
                 gridItem.innerHTML = `
                     <div class="item-header">
                         <div class="item-thumbnail" style="background-image: url('${release.albumArtUrl}')"></div>
                         <div class="item-details">
-                            <div class="title">${release.title}</div>
-                            <div class="artist">${release.artist}</div>
+                            <!-- Title and Artist will be inserted here -->
                         </div>
                     </div>
                     <div class="details-section">${detailsHtml}</div>`;
+
+                gridItem.querySelector('.item-details').appendChild(titleEl);
+                gridItem.querySelector('.item-details').appendChild(artistEl);
                 
-                gridItem.addEventListener('click', () => {
-                    const isExpanded = gridItem.classList.contains('is-expanded');
-                    document.querySelectorAll('.grid-item.is-expanded').forEach(el => el.classList.remove('is-expanded'));
-                    if (!isExpanded) gridItem.classList.add('is-expanded');
-                });
+                const isDesktop = window.matchMedia("(hover: hover)").matches;
 
-                indexGrid.appendChild(gridItem);
-            });
-        }
-
-        function setupLazyLoader() {
-            const sentinel = document.getElementById('sentinel');
-            const observer = new IntersectionObserver(async (entries) => {
-                if (entries[0].isIntersecting && !isFetching && airtableOffset) {
-                    const newReleases = await fetchAirtableReleases();
-                    if (newReleases && newReleases.length > 0) {
-                        renderIndex(newReleases, true); // Append new items
-                    }
+                if (isDesktop) {
+                    gridItem.addEventListener('mouseenter', () => gridItem.classList.add('is-expanded'));
+                    gridItem.addEventListener('mouseleave', () => gridItem.classList.remove('is-expanded'));
+                } else {
+                    gridItem.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const isExpanded = gridItem.classList.contains('is-expanded');
+                        document.querySelectorAll('.grid-item.is-expanded').forEach(el => {
+                            if (el !== gridItem) el.classList.remove('is-expanded');
+                        });
+                        gridItem.classList.toggle('is-expanded');
+                    });
                 }
-            }, { threshold: 1.0 });
-
-            if (sentinel) observer.observe(sentinel);
-        }
-
-        function setupStaticUI() {
-            const viewToggle = document.getElementById('viewToggle');
-            const closeBtn = document.getElementById('closeBtn');
-            const indexView = document.getElementById('indexView');
-            const plusBtn = document.getElementById('plus-btn');
-            const minusBtn = document.getElementById('minus-btn');
-            const indexGrid = document.getElementById('indexGrid');
-            let currentColumns = 4;
+                return gridItem;
+            }
             
-            const updateGridColumns = () => {
-                indexGrid.style.setProperty('--grid-columns', currentColumns);
-                const newSize = 240 - (currentColumns * 20);
-                 indexGrid.style.setProperty('--thumbnail-size', `${Math.max(60, newSize)}px`);
+            function updateGridColumns() {
+                const grid = document.getElementById('indexGrid');
+                grid.style.setProperty('--grid-columns', currentColumns);
+                const size = sizeMap[currentColumns];
+                grid.style.setProperty('--thumbnail-size', size);
                 minusBtn.disabled = currentColumns <= 2;
-                plusBtn.disabled = currentColumns >= 6;
-            };
+                plusBtn.disabled = currentColumns >= 5;
+            }
 
-            plusBtn.addEventListener('click', () => { if (currentColumns < 6) { currentColumns++; updateGridColumns(); }});
-            minusBtn.addEventListener('click', () => { if (currentColumns > 2) { currentColumns--; updateGridColumns(); }});
+            plusBtn.addEventListener('click', (e) => { e.stopPropagation(); if (currentColumns < 5) { currentColumns++; updateGridColumns(); }});
+            minusBtn.addEventListener('click', (e) => { e.stopPropagation(); if (currentColumns > 2) { currentColumns--; updateGridColumns(); }});
+
+            function toggleView() {
+                isIndexViewActive = !isIndexViewActive;
+                indexView.classList.toggle('active', isIndexViewActive);
+                document.body.style.overflow = isIndexViewActive ? 'hidden' : 'auto';
+            }
             
-            viewToggle.addEventListener('click', () => indexView.classList.add('active'));
-            closeBtn.addEventListener('click', () => indexView.classList.remove('active'));
+            document.addEventListener('click', (event) => {
+                if (isIndexViewActive && !event.target.closest('.grid-item') && !event.target.closest('.view-controls')) {
+                    document.querySelectorAll('.grid-item.is-expanded').forEach(el => el.classList.remove('is-expanded'));
+                }
+            });
+
+            viewToggle.addEventListener('click', toggleView);
+            closeBtn.addEventListener('click', toggleView);
+
+            aboutBtn.addEventListener('click', (e) => { e.preventDefault(); aboutModal.classList.add('active'); });
+            aboutCloseBtn.addEventListener('click', () => aboutModal.classList.remove('active'));
+            aboutModal.addEventListener('click', (e) => {
+                if(e.target === aboutModal) aboutModal.classList.remove('active');
+            });
             
             updateGridColumns();
         }
