@@ -149,13 +149,13 @@
                 })
                 .catch(error => {
                     console.error('Error loading discography data:', error);
-                    // Optionally, display an error message to the user on the page
-                    document.body.innerHTML = '<p style="text-align:center; padding-top: 50px;">Could not load discography data. Please try again later.</p>';
+                    // Display an error message to the user on the page
+                    document.body.innerHTML = '<p style="text-align:center; padding-top: 50px; font-family: sans-serif;">Could not load discography data. Please try again later.</p>';
                 });
         });
 
         function initializeApp(releases) {
-            // Data is already sorted by the build script, but a client-side sort is a good fallback.
+            // Data is pre-sorted, but a client-side sort is a good fallback.
             releases.sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate));
 
             const carouselContainer = document.getElementById('carouselContainer');
@@ -225,7 +225,7 @@
                     {url: release.youtubeUrl, text: "YouTube"},
                     {url: release.spotifyUrl, text: "Spotify"},
                     {url: release.appleMusicUrl, text: "Apple Music"}
-                ].filter(link => link.url).map(link => `<a href="${link.url}" target="_blank" rel="noopener noreferrer">${link.text}</a>`).join('');
+                ].filter(link => link && link.url).map(link => `<a href="${link.url}" target="_blank" rel="noopener noreferrer">${link.text}</a>`).join('');
 
                 carouselItem.innerHTML = `
                     <div class="album-cover" style="background-image: url('${release.albumArtUrl}')">
