@@ -4,7 +4,7 @@
     "artist": "Elestee, Take A Daytrip",
     "type": "Single",
     "releaseDate": "2025-08-28",
-    "albumArtUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/0e/d9/91/0ed9912a-0a28-1e3d-0af2-b685e878148a/25UM1IM19662.rgb.jpg/1000x1000bb.jpg",
+    "albumArtUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/0e/d9/91/0ed9912a-0a28-1e-3d-0af2-b685e878148a/25UM1IM19662.rgb.jpg/1000x1000bb.jpg",
     "credits": "Primary Artist",
     "spotifyUrl": "https://open.spotify.com/track/6N24qh0lNjPDph0rdWDxKK",
     "appleMusicUrl": "https://music.apple.com/us/album/designer-baby-single/1833227647",
@@ -30,12 +30,15 @@
       "Eve ate the apple",
       "Rumi",
       "She's Teaching",
-      "Butterflies & Diamond Chains"
+      "Butterflies & Diamond Chains",
+      "Girl's Girl",
+      "Loops",
+      "True Blue"
     ],
-    "spotifyUrl": null,
-    "appleMusicUrl": "https://music.apple.com/us/album/genesis/1818207575",
-    "youtubeUrl": "https://www.youtube.com/watch?v=pGmR3R44_Qo&list=RDpGmR3R44_Qo&start_radio=1&pp=ygUXVHJ1ZSBCbHVlCVRvbW15IEdlbmVzaXOgBwE%3D",
-    "videoUrl": "https://video-ssl.itunes.apple.com/itunes-assets/Video221/v4/30/42/b2/3042b25b-48c3-8eaf-1c42-e49cd781374e/mzvf_7032637510971348397.720w.h264lc.U.p.m4v"
+    "spotifyUrl": "https://open.spotify.com/track/6nMjIDxMZgbIFKB0p1p4sb",
+    "appleMusicUrl": "https://music.apple.com/us/album/homebound/1818207575?i=1818207685",
+    "youtubeUrl": null,
+    "videoUrl": null
   },
   {
     "title": "All Life Long",
@@ -46,30 +49,6 @@
     "credits": "Producer, Programmer, Guitar, Keyboard, + 2",
     "spotifyUrl": "https://open.spotify.com/track/7mSNtdW0ibJwhaoI2y6RAv",
     "appleMusicUrl": "https://music.apple.com/us/album/all-life-long/1522671511?i=1522671512",
-    "youtubeUrl": null,
-    "videoUrl": null
-  },
-  {
-    "title": "Girl's Girl",
-    "artist": "Tommy Genesis",
-    "type": "Single",
-    "releaseDate": "2025-07-11",
-    "albumArtUrl": "https://i.scdn.co/image/ab67616d0000b273c942897186ab1799a6613746",
-    "credits": "Producer",
-    "spotifyUrl": "https://open.spotify.com/track/5Aaq6ejj1FdHKfo9hsbmQ9",
-    "appleMusicUrl": "https://music.apple.com/us/album/girls-girl-single/1753945484",
-    "youtubeUrl": null,
-    "videoUrl": null
-  },
-  {
-    "title": "Loops",
-    "artist": "Tommy Genesis",
-    "type": "Single",
-    "releaseDate": "2025-07-04",
-    "albumArtUrl": "https://i.scdn.co/image/ab67616d0000b27314bd5f6a465080874fe8b25b",
-    "credits": "Producer",
-    "spotifyUrl": "https://open.spotify.com/track/7bqb3PKCl1CLWLm6RpqI5o",
-    "appleMusicUrl": "https://music.apple.com/us/album/loops-single/1752119832",
     "youtubeUrl": null,
     "videoUrl": null
   },
@@ -86,18 +65,6 @@
     "videoUrl": "https://video-ssl.itunes.apple.com/itunes-assets/Video221/v4/b2/65/b3/b265b38c-99b9-f58b-3c1d-a83f3ad546e3/mzvf_3571631949839265127.720w.h264lc.U.p.m4v"
   },
   {
-    "title": "True Blue",
-    "artist": "Tommy Genesis",
-    "type": "Single",
-    "releaseDate": "2025-06-20",
-    "albumArtUrl": "https://i.scdn.co/image/ab67616d0000b2738fc4d1f0fec9341e2717696c",
-    "credits": "Producer",
-    "spotifyUrl": "https://open.spotify.com/track/1ZVD4m8TQrPG768hhzEba8",
-    "appleMusicUrl": "https://music.apple.com/us/album/true-blue-single/1748378318",
-    "youtubeUrl": "https://www.youtube.com/watch?v=pGmR3R44_Qo&list=RDpGmR3R44_Qo&start_radio=1&pp=ygUXVHJ1ZSBCbHVlCVRvbW15IEdlbmVzaXOgBwE%3D",
-    "videoUrl": "https://video-ssl.itunes.apple.com/itunes-assets/Video221/v4/30/42/b2/3042b25b-48c3-8eaf-1c42-e49cd781374e/mzvf_7032637510971348397.720w.h264lc.U.p.m4v"
-  },
-  {
     "title": "Al Chile",
     "artist": "Ruzzi",
     "type": "Single",
@@ -107,30 +74,6 @@
     "spotifyUrl": "https://open.spotify.com/track/2vp6BwbVbJFDLuouzlbW64",
     "appleMusicUrl": "https://music.apple.com/us/album/al-chile-single/1746484347",
     "youtubeUrl": "https://www.youtube.com/watch?v=I94DMRWTC14&list=RDI94DMRWTC14&start_radio=1&pp=ygUOQWwgQ2hpbGUJUnV6emmgBwE%3D",
-    "videoUrl": null
-  },
-  {
-    "title": "PERVERSA",
-    "artist": "PEDRO SAMPAIO, J Balvin, Take A Daytrip",
-    "type": "Single",
-    "releaseDate": "2025-05-29",
-    "albumArtUrl": "https://i.scdn.co/image/ab67616d0000b273e5312e92c79ff260949e5de0",
-    "credits": "Primary Artist",
-    "spotifyUrl": "https://open.spotify.com/track/7gHBYjbORM0BF0pmhvgP0K",
-    "appleMusicUrl": "https://music.apple.com/us/album/perversa-feat-j-balvin-take-a-daytrip/1766062277?i=1766062462",
-    "youtubeUrl": "https://www.youtube.com/watch?v=4mG5D2l2X6g&list=RD4mG5D2l2X6g&start_radio=1&pp=ygUwUEVSVkVSU0EJUEVEUk8gU0FNUEFJTywgSiBCYWx2aW4sIFRha2UgQSBEYXl0cmlwoAcB",
-    "videoUrl": "https://video-ssl.itunes.apple.com/itunes-assets/Video211/v4/d5/a7/0a/d5a70a86-6f29-0e5e-8e62-7d78f2a42ee3/mzvf_3549211389954350352.720w.h264lc.U.p.m4v"
-  },
-  {
-    "title": "AEROMOÇA",
-    "artist": "Xamã, Flora Matos",
-    "type": "Single",
-    "releaseDate": "2025-05-29",
-    "albumArtUrl": "https://i.scdn.co/image/ab67616d0000b2735b87c7cc6003d97894cd81dc",
-    "credits": "Producer",
-    "spotifyUrl": "https://open.spotify.com/track/48prukdF0AI4Q7AMOzkxnQ",
-    "appleMusicUrl": "https://music.apple.com/us/album/aeromo%C3%A7a/1820037698?i=1820037800",
-    "youtubeUrl": null,
     "videoUrl": null
   }
 ]
