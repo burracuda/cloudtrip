@@ -1076,3 +1076,208 @@
         "spotifyUrl": "https://soundcloud.com/takeadaytrip/flight-43-nyc"
     }
 ];
+        
+        // --- APPLICATION LOGIC ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Data is pre-sorted, so no need to sort it here.
+            const introOverlay = document.getElementById('intro-overlay');
+            setTimeout(() => { introOverlay.classList.add('hidden'); }, 500);
+            setTimeout(() => { introOverlay.style.display = 'none'; }, 1500);
+            initializeApp(discographyData);
+        });
+
+        function initializeApp(releases) {
+            const carouselContainer = document.getElementById('carouselContainer');
+            const indexGrid = document.getElementById('indexGrid');
+            const viewToggle = document.getElementById('viewToggle');
+            const closeBtn = document.getElementById('closeBtn');
+            const indexView = document.getElementById('indexView');
+            const plusBtn = document.getElementById('plus-btn');
+            const minusBtn = document.getElementById('minus-btn');
+            const loadMoreContainer = document.getElementById('loadMoreContainer');
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            const aboutBtn = document.getElementById('aboutBtn');
+            const aboutModal = document.getElementById('aboutModal');
+            const aboutCloseBtn = document.getElementById('aboutCloseBtn');
+            
+            const carouselReleases = releases.slice(0, 15);
+            renderCarousel(carouselReleases);
+            
+            let currentlyRenderedCount = 0;
+            const BATCH_SIZE = 20;
+
+            function renderIndexBatch() {
+                loadMoreBtn.textContent = "Loading...";
+                loadMoreBtn.disabled = true;
+
+                setTimeout(() => {
+                    const itemsToRender = releases.slice(currentlyRenderedCount, currentlyRenderedCount + BATCH_SIZE);
+                    const fragment = document.createDocumentFragment();
+                    itemsToRender.forEach(release => {
+                        const gridItem = createGridItem(release);
+                        fragment.appendChild(gridItem);
+                    });
+                    indexGrid.appendChild(fragment);
+                    currentlyRenderedCount = indexGrid.children.length;
+
+                    loadMoreBtn.textContent = "Show More";
+                    loadMoreBtn.disabled = false;
+
+                    if (currentlyRenderedCount >= releases.length) {
+                        loadMoreContainer.classList.add('hidden');
+                    }
+                }, 100);
+            }
+            
+            renderIndexBatch();
+
+            loadMoreBtn.addEventListener('click', renderIndexBatch);
+            
+            let isIndexViewActive = false;
+            let currentColumns = 3;
+            const sizeMap = { 2: '300px', 3: '200px', 4: '100px', 5: '60px' };
+
+            function renderCarousel(carouselItems) {
+                carouselContainer.innerHTML = '';
+                 carouselItems.forEach(release => {
+                    const carouselItem = createCarouselItem(release);
+                    carouselContainer.appendChild(carouselItem);
+                });
+            }
+
+            function createCarouselItem(release) {
+                const carouselItem = document.createElement('div');
+                carouselItem.className = 'carousel-item';
+                
+                let videoContent = release.videoUrl ? `<video src="${release.videoUrl}" loop muted playsinline></video>` : '';
+                let links = [
+                    {url: release.youtubeUrl, text: "YouTube"},
+                    {url: release.spotifyUrl, text: "Spotify"},
+                    {url: release.appleMusicUrl, text: "Apple Music"}
+                ].filter(link => link.url).map(link => `<a href="${link.url}" target="_blank" rel="noopener noreferrer">${link.text}</a>`).join('');
+
+                carouselItem.innerHTML = `
+                    <div class="album-cover" style="background-image: url('${release.albumArtUrl}')">
+                        ${videoContent}
+                        <div class="action-overlay">${links}</div>
+                    </div>
+                    <div class="item-info">
+                        <div class="item-title">${release.title}</div>
+                        <div class="item-artist">${release.artist}</div>
+                    </div>`;
+                
+                let actionTimer;
+                const video = carouselItem.querySelector('video');
+                carouselItem.addEventListener('mouseenter', () => {
+                    actionTimer = setTimeout(() => {
+                        carouselItem.classList.add('is-active');
+                        if (video) {
+                            carouselItem.classList.add('is-expanded');
+                            video.play().catch(e => {});
+                        }
+                    }, 1500);
+                });
+                carouselItem.addEventListener('mouseleave', () => {
+                    clearTimeout(actionTimer);
+                    carouselItem.classList.remove('is-active', 'is-expanded');
+                    if (video) {
+                        video.pause();
+                        video.currentTime = 0;
+                    }
+                });
+                return carouselItem;
+            }
+
+            function createGridItem(release) {
+                const gridItem = document.createElement('div');
+                gridItem.className = 'grid-item';
+                
+                if (release.type === 'Album') gridItem.classList.add('is-album');
+                else gridItem.classList.add('is-single');
+
+                let detailsHtml = '';
+                if (release.type === 'Album' && release.tracklist && release.tracklist.length > 0) {
+                    const trackItems = release.tracklist.map(track => `<li>${track}</li>`).join('');
+                    detailsHtml = `<ul>${trackItems}</ul>`;
+                } else if (release.credits) {
+                    detailsHtml = `<div class="credit-section"><div class="credit-item"><span class="name">${release.credits}</span></div></div>`;
+                }
+                
+                const titleEl = document.createElement('div');
+                titleEl.className = 'title';
+                titleEl.textContent = release.title;
+                titleEl.title = release.title;
+
+                const artistEl = document.createElement('div');
+                artistEl.className = 'artist';
+                artistEl.textContent = release.artist;
+                artistEl.title = release.artist;
+
+                gridItem.innerHTML = `
+                    <div class="item-header">
+                        <div class="item-thumbnail" style="background-image: url('${release.albumArtUrl}')"></div>
+                        <div class="item-details">
+                            <!-- Title and Artist will be inserted here -->
+                        </div>
+                    </div>
+                    <div class="details-section">${detailsHtml}</div>`;
+
+                gridItem.querySelector('.item-details').appendChild(titleEl);
+                gridItem.querySelector('.item-details').appendChild(artistEl);
+                
+                const isDesktop = window.matchMedia("(hover: hover)").matches;
+
+                if (isDesktop) {
+                    gridItem.addEventListener('mouseenter', () => gridItem.classList.add('is-expanded'));
+                    gridItem.addEventListener('mouseleave', () => gridItem.classList.remove('is-expanded'));
+                } else {
+                    gridItem.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const isExpanded = gridItem.classList.contains('is-expanded');
+                        document.querySelectorAll('.grid-item.is-expanded').forEach(el => {
+                            if (el !== gridItem) el.classList.remove('is-expanded');
+                        });
+                        gridItem.classList.toggle('is-expanded');
+                    });
+                }
+                return gridItem;
+            }
+            
+            function updateGridColumns() {
+                const grid = document.getElementById('indexGrid');
+                grid.style.setProperty('--grid-columns', currentColumns);
+                const size = sizeMap[currentColumns];
+                grid.style.setProperty('--thumbnail-size', size);
+                minusBtn.disabled = currentColumns <= 2;
+                plusBtn.disabled = currentColumns >= 5;
+            }
+
+            plusBtn.addEventListener('click', (e) => { e.stopPropagation(); if (currentColumns < 5) { currentColumns++; updateGridColumns(); }});
+            minusBtn.addEventListener('click', (e) => { e.stopPropagation(); if (currentColumns > 2) { currentColumns--; updateGridColumns(); }});
+
+            function toggleView() {
+                isIndexViewActive = !isIndexViewActive;
+                indexView.classList.toggle('active', isIndexViewActive);
+                document.body.style.overflow = isIndexViewActive ? 'hidden' : 'auto';
+            }
+            
+            document.addEventListener('click', (event) => {
+                if (isIndexViewActive && !event.target.closest('.grid-item') && !event.target.closest('.view-controls')) {
+                    document.querySelectorAll('.grid-item.is-expanded').forEach(el => el.classList.remove('is-expanded'));
+                }
+            });
+
+            viewToggle.addEventListener('click', toggleView);
+            closeBtn.addEventListener('click', toggleView);
+
+            aboutBtn.addEventListener('click', (e) => { e.preventDefault(); aboutModal.classList.add('active'); });
+            aboutCloseBtn.addEventListener('click', () => aboutModal.classList.remove('active'));
+            aboutModal.addEventListener('click', (e) => {
+                if(e.target === aboutModal) aboutModal.classList.remove('active');
+            });
+            
+            updateGridColumns();
+        }
+    </script>
+</body>
+</html>
