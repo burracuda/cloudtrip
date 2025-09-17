@@ -127,29 +127,20 @@
     </div>
 
     <script>
-        // --- DATA SOURCE & APPLICATION LOGIC ---
+        // --- APPLICATION LOGIC ---
         document.addEventListener('DOMContentLoaded', () => {
             const introOverlay = document.getElementById('intro-overlay');
             setTimeout(() => { introOverlay.classList.add('hidden'); }, 500);
             setTimeout(() => { introOverlay.style.display = 'none'; }, 1500);
 
-            // Fetch external data
+            // Fetch the curated data from the JSON file
             fetch('data.json')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok ' + response.statusText);
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(discographyData => {
-                    // Sort data and initialize the application
-                    discographyData.sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate));
+                    // The original sort is no longer needed as the data is pre-sorted.
                     initializeApp(discographyData);
                 })
-                .catch(error => {
-                    console.error('There has been a problem with your fetch operation:', error);
-                    // You could display an error message to the user here
-                });
+                .catch(error => console.error('Error loading discography data:', error));
         });
 
         function initializeApp(releases) {
